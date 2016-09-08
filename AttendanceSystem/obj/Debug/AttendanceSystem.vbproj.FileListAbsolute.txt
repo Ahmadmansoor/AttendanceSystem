@@ -1,0 +1,16 @@
+D:\Code\AttendanceSystem\AttendanceSystem\bin\Debug\AttendanceSystem.exe.config
+D:\Code\AttendanceSystem\AttendanceSystem\bin\Debug\AttendanceSystem.exe
+D:\Code\AttendanceSystem\AttendanceSystem\bin\Debug\AttendanceSystem.pdb
+D:\Code\AttendanceSystem\AttendanceSystem\bin\Debug\AttendanceSystem.xml
+D:\Code\AttendanceSystem\AttendanceSystem\bin\Debug\Interop.ZKFPEngXControl.dll
+D:\Code\AttendanceSystem\AttendanceSystem\bin\Debug\AxInterop.ZKFPEngXControl.dll
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.vbprojResolveAssemblyReference.cache
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\Interop.ZKFPEngXControl.dll
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AxInterop.ZKFPEngXControl.dll
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.vbproj.ResolveComReference.cache
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.Form1.resources
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.Resources.resources
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.vbproj.GenerateResource.Cache
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.exe
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.xml
+D:\Code\AttendanceSystem\AttendanceSystem\obj\Debug\AttendanceSystem.pdb
