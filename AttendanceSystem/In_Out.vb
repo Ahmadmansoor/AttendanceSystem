@@ -16,8 +16,8 @@ Public Class In_Out
         FormBorderStyle = Windows.Forms.FormBorderStyle.None
         Location = New Point(0, 0)
         Size = SystemInformation.PrimaryMonitorMaximizedWindowSize
-        TopMost = True
-        WindowState = 2
+        'TopMost = True
+        'WindowState = 2
 
         If (AxZKFPEngX1.InitEngine = 0) Then
             AxZKFPEngX1.FPEngineVersion = "9"
@@ -37,41 +37,129 @@ Public Class In_Out
         Dim buffer(63) As SByte
         Dim sTemp As String = String.Empty
         Dim RegChanged As Boolean = False
-        If (matchType = 1) Then
-            Dim bTemp As String = String.Empty
-            sTemp = AxZKFPEngX1.GetTemplateAsString()
-            'bTemp = StampTextBox.Text 'sRegTemplate ;here we get the save Templet of the Finger Print we will save it in the data base later 
-            Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
-            If CheckifUserReg.Count > 0 Then
-                StatusLabel3.Text = "Verfiy Succeed"
-                StatusLabel3.ForeColor = Color.Green
-                'Dim xx = AttendanceTableTableAdapter.GetData(DateAndTime.DateString)
-                Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
-                If isUserHaveRecored.Count > 0 Then
-                    If isUserHaveRecored.First.TimeIn <> TimeSpan.Zero Then ' this mean he reg in time
-                        MsgBox("You have been In,you can't enter again in same day", MsgBoxStyle.OkOnly, "Error")
-                        StatusLabel3.Text = "Verfiy Failed"
-                        StatusLabel3.ForeColor = Color.Red
-                    Else    ' this is mean it is the first in in this day 
-
+        Select Case matchType
+            Case 1  ' enter user
+                Dim bTemp As String = String.Empty
+                sTemp = AxZKFPEngX1.GetTemplateAsString()
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) ' stamp have't valid user
+                If CheckifUserReg.Count > 0 Then ' check it user have recored at this day 
+                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
+                    If isUserHaveRecored.Count > 0 Then
+                        If (isUserHaveRecored.First.TimeIn = TimeSpan.Zero And isUserHaveRecored.First.TimeOut = TimeSpan.Zero) Then 'Or isUserHaveRecored.First.LanchIn = TimeSpan.Zero Or isUserHaveRecored.First.LanchOut = TimeSpan.Zero) Then
+                            AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
+                            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                            StatusLabel3.Text = "Verfiy Succeed-you have reg in : " & CheckifUserReg.First.Username
+                            StatusLabel3.ForeColor = Color.Green
+                        Else
+                            MsgBox("You have been reg In ,you can't enter again in same day ... or something wrong!!", MsgBoxStyle.OkOnly, "Error")
+                            StatusLabel3.Text = "Verfiy Failed-have been reg in : " & isUserHaveRecored.First.Username
+                            StatusLabel3.ForeColor = Color.Red
+                        End If
+                        '    If isUserHaveRecored.First.TimeIn <> TimeSpan.Zero Then ' this mean he come early and stamp
+                        '        MsgBox("You have been reg In,you can't enter again in same day", MsgBoxStyle.OkOnly, "Error")
+                        '        StatusLabel3.Text = "Verfiy Failed-have been reg in : " & isUserHaveRecored.First.Username
+                        '        StatusLabel3.ForeColor = Color.Red
+                        '    End If
+                        'ElseIf isUserHaveRecored.First.TimeOut = TimeSpan.Zero Or isUserHaveRecored.First.LanchIn = TimeSpan.Zero Or isUserHaveRecored.First.LanchOut = TimeSpan.Zero Then
+                        '    AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
+                        '    Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                        '    StatusLabel3.Text = "Verfiy Succeed-you have reg in : " & CheckifUserReg.First.Username
+                        '    StatusLabel3.ForeColor = Color.Green
+                        'Else
+                        '    MsgBox("You have been reg In,you can't enter again in same day", MsgBoxStyle.OkOnly, "Error")
+                        '    StatusLabel3.Text = "Verfiy Failed-have been reg in : " & isUserHaveRecored.First.Username
+                        '    StatusLabel3.ForeColor = Color.Red
+                    End If
+                    Else
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    StatusLabel3.ForeColor = Color.Red
+                End If
+                matchType = 0
+            Case 2  ' user go out  
+                Dim bTemp As String = String.Empty
+                sTemp = AxZKFPEngX1.GetTemplateAsString()
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                If CheckifUserReg.Count > 0 Then 'check if user in data base
+                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
+                    If isUserHaveRecored.Count > 0 Then ' check if user have recored at this day
+                        If (isUserHaveRecored.First.TimeOut = TimeSpan.Zero And isUserHaveRecored.First.TimeIn <> TimeSpan.Zero) Then ' this mean he go out and stamp
+                            StatusLabel3.Text = "Verfiy Succeed-you have reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.ForeColor = Color.Green
+                            AttendanceTableTableAdapter.Update_TimeOut_UserID(Date.Now.TimeOfDay.ToString, CheckifUserReg.First.UserID)
+                            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                        Else
+                            MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                            StatusLabel3.Text = "Verfiy Failed-have been reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.ForeColor = Color.Red
+                        End If
+                    End If
+                    Else
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    StatusLabel3.ForeColor = Color.Red
+                End If
+                matchType = 0
+            Case 3  ' go to Lansh out
+                Dim bTemp As String = String.Empty
+                sTemp = AxZKFPEngX1.GetTemplateAsString()
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                If CheckifUserReg.Count > 0 Then 'check if user in data base
+                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
+                    If isUserHaveRecored.Count > 0 Then ' check if user have recored at this day
+                        If (isUserHaveRecored.First.LanchOut = TimeSpan.Zero And isUserHaveRecored.First.LanchIn = TimeSpan.Zero) Then ' this mean he go out and stamp
+                            StatusLabel3.Text = "Verfiy Succeed-you have reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.ForeColor = Color.Green
+                            AttendanceTableTableAdapter.Update_LanchOut_UserID(Date.Now.TimeOfDay.ToString, CheckifUserReg.First.UserID)
+                            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                        Else
+                            MsgBox("You have been reg Lansh out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                            StatusLabel3.Text = "Verfiy Failed-have been reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.ForeColor = Color.Red
+                        End If
                     End If
                 Else
-                    AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
-                    Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    StatusLabel3.ForeColor = Color.Red
                 End If
-            Else
-                StatusLabel3.Text = "Verfiy Failed"
-                StatusLabel3.ForeColor = Color.Red
-            End If
-            matchType = 0
-        End If
-
+                matchType = 0
+            Case 4  ' back form lansh (in)
+                Dim bTemp As String = String.Empty
+                sTemp = AxZKFPEngX1.GetTemplateAsString()
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                If CheckifUserReg.Count > 0 Then 'check if user in data base
+                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
+                    If isUserHaveRecored.Count > 0 Then ' check if user have recored at this day
+                        If (isUserHaveRecored.First.LanchIn = TimeSpan.Zero And isUserHaveRecored.First.LanchOut <> TimeSpan.Zero) Then ' this mean he go out and stamp
+                            StatusLabel3.Text = "Verfiy Succeed-you have reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.ForeColor = Color.Green
+                            AttendanceTableTableAdapter.Update_LanchIn_UserID(Date.Now.TimeOfDay.ToString, CheckifUserReg.First.UserID)
+                            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                        Else
+                            MsgBox("You have been reg Lansh in or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                            StatusLabel3.Text = "Verfiy Failed-have been reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.ForeColor = Color.Red
+                        End If
+                    End If
+                Else
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    StatusLabel3.ForeColor = Color.Red
+                End If
+                matchType = 0
+        End Select
 
     End Sub
     Private Sub Timer_DateCheck_Tick(sender As Object, e As EventArgs) Handles Timer_DateCheck.Tick
         TodayDate = DateAndTime.Today
         La_Date.Text = TodayDate.ToString("d")
         La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
+        Dim myTime As Date = Now
+        Dim s As Integer = Hour(myTime)
+        If (Hour(myTime) > 12 And Hour(myTime) < 15) Then
+            Bu_BreakIn.Enabled = True
+            Bu_BreakOut.Enabled = True
+        ElseIf (Hour(myTime) < 12 And Hour(myTime) > 15) Then
+            Bu_BreakIn.Enabled = False
+            Bu_BreakOut.Enabled = False
+        End If
     End Sub
 
     Private Sub AttendanceTableBindingNavigatorSaveItem_Click(sender As Object, e As EventArgs) Handles AttendanceTableBindingNavigatorSaveItem.Click
@@ -105,5 +193,21 @@ Public Class In_Out
         End If
         StatusLabel3.Text = "Verify Out"
         matchType = 2
+    End Sub
+
+    Private Sub Bu_BreakOut_Click(sender As Object, e As EventArgs) Handles Bu_BreakOut.Click
+        If (AxZKFPEngX1.IsRegister()) Then
+            AxZKFPEngX1.CancelEnroll()
+        End If
+        StatusLabel3.Text = "Verify Lansh Out"
+        matchType = 3
+    End Sub
+
+    Private Sub Bu_BreakIn_Click(sender As Object, e As EventArgs) Handles Bu_BreakIn.Click
+        If (AxZKFPEngX1.IsRegister()) Then
+            AxZKFPEngX1.CancelEnroll()
+        End If
+        StatusLabel3.Text = "Verify Lansh In"
+        matchType = 4
     End Sub
 End Class
