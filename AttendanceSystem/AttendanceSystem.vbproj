@@ -117,6 +117,11 @@
     <Compile Include="In_Out.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MonthlyDataSheet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MonthlyDataSheet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -178,6 +183,17 @@
     </None>
     <None Include="DataSheetDataSet.xss">
       <DependentUpon>DataSheetDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MonthlyDataSheet.xsc">
+      <DependentUpon>MonthlyDataSheet.xsd</DependentUpon>
+    </None>
+    <None Include="MonthlyDataSheet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MonthlyDataSheet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MonthlyDataSheet.xss">
+      <DependentUpon>MonthlyDataSheet.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

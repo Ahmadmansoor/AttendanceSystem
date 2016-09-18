@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class In_Out
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class In_Out
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(In_Out))
@@ -70,6 +70,24 @@ Partial Class In_Out
         Me.TableAdapterManager = New AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager()
         Me.UsersTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.UsersTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.UsersTableTableAdapter()
+        Me.LB_Month = New System.Windows.Forms.ListBox()
+        Me.Bu_CheckMonth = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.AttendanceTableDataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.LB_Year = New System.Windows.Forms.ListBox()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AttendanceTableBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.MonthlyDataSheet = New AttendanceSystem.MonthlyDataSheet()
+        Me.AttendanceTableTableAdapter1 = New AttendanceSystem.MonthlyDataSheetTableAdapters.AttendanceTableTableAdapter()
+        Me.TableAdapterManager1 = New AttendanceSystem.MonthlyDataSheetTableAdapters.TableAdapterManager()
         CType(Me.AxZKFPEngX1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AttendanceTableBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AttendanceTableBindingNavigator.SuspendLayout()
@@ -79,9 +97,14 @@ Partial Class In_Out
         Me.StatusStrip1.SuspendLayout()
         CType(Me.AttendanceTableDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
         CType(Me.AttendanceTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataSetInOut, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.AttendanceTableDataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Timer_DateCheck
@@ -238,7 +261,7 @@ Partial Class In_Out
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(1281, 788)
         Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "TabPage1"
+        Me.TabPage1.Text = "Attendance Page"
         '
         'PB_Stamp
         '
@@ -387,13 +410,17 @@ Partial Class In_Out
         '
         'TabPage2
         '
+        Me.TabPage2.BackColor = System.Drawing.Color.SteelBlue
+        Me.TabPage2.Controls.Add(Me.LB_Year)
+        Me.TabPage2.Controls.Add(Me.GroupBox2)
+        Me.TabPage2.Controls.Add(Me.Bu_CheckMonth)
+        Me.TabPage2.Controls.Add(Me.LB_Month)
         Me.TabPage2.Location = New System.Drawing.Point(4, 28)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(1281, 788)
         Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        Me.TabPage2.Text = "Inquiry Page"
         '
         'DataGridViewTextBoxColumn1
         '
@@ -481,6 +508,148 @@ Partial Class In_Out
         '
         Me.UsersTableTableAdapter.ClearBeforeFill = True
         '
+        'LB_Month
+        '
+        Me.LB_Month.FormattingEnabled = True
+        Me.LB_Month.ItemHeight = 19
+        Me.LB_Month.Items.AddRange(New Object() {"1-January", "2-February", "3-March", "4-April", "5-May", "6-June", "7-July", "8-August", "9-September", "10-October", "11-November", "12-December"})
+        Me.LB_Month.Location = New System.Drawing.Point(11, 127)
+        Me.LB_Month.Name = "LB_Month"
+        Me.LB_Month.Size = New System.Drawing.Size(122, 232)
+        Me.LB_Month.TabIndex = 0
+        '
+        'Bu_CheckMonth
+        '
+        Me.Bu_CheckMonth.Location = New System.Drawing.Point(11, 365)
+        Me.Bu_CheckMonth.Name = "Bu_CheckMonth"
+        Me.Bu_CheckMonth.Size = New System.Drawing.Size(120, 45)
+        Me.Bu_CheckMonth.TabIndex = 1
+        Me.Bu_CheckMonth.Text = "Log me In"
+        Me.Bu_CheckMonth.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.AttendanceTableDataGridView1)
+        Me.GroupBox2.Location = New System.Drawing.Point(143, 18)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(1118, 648)
+        Me.GroupBox2.TabIndex = 2
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "GroupBox2"
+        '
+        'AttendanceTableDataGridView1
+        '
+        Me.AttendanceTableDataGridView1.AllowUserToAddRows = False
+        Me.AttendanceTableDataGridView1.AllowUserToDeleteRows = False
+        Me.AttendanceTableDataGridView1.AllowUserToResizeColumns = False
+        Me.AttendanceTableDataGridView1.AllowUserToResizeRows = False
+        Me.AttendanceTableDataGridView1.AutoGenerateColumns = False
+        Me.AttendanceTableDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.AttendanceTableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.AttendanceTableDataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn10, Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15, Me.DataGridViewTextBoxColumn16, Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18})
+        Me.AttendanceTableDataGridView1.DataSource = Me.AttendanceTableBindingSource1
+        Me.AttendanceTableDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AttendanceTableDataGridView1.Location = New System.Drawing.Point(3, 23)
+        Me.AttendanceTableDataGridView1.Name = "AttendanceTableDataGridView1"
+        Me.AttendanceTableDataGridView1.ReadOnly = True
+        Me.AttendanceTableDataGridView1.Size = New System.Drawing.Size(1112, 622)
+        Me.AttendanceTableDataGridView1.TabIndex = 0
+        '
+        'LB_Year
+        '
+        Me.LB_Year.FormattingEnabled = True
+        Me.LB_Year.ItemHeight = 19
+        Me.LB_Year.Items.AddRange(New Object() {"2016", "2017", "2018", "2019"})
+        Me.LB_Year.Location = New System.Drawing.Point(11, 41)
+        Me.LB_Year.Name = "LB_Year"
+        Me.LB_Year.Size = New System.Drawing.Size(122, 80)
+        Me.LB_Year.TabIndex = 3
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.DataPropertyName = "LogID"
+        Me.DataGridViewTextBoxColumn10.HeaderText = "LogID"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.DataPropertyName = "UserID"
+        Me.DataGridViewTextBoxColumn11.HeaderText = "UserID"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.DataPropertyName = "Username"
+        Me.DataGridViewTextBoxColumn12.HeaderText = "Username"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        Me.DataGridViewTextBoxColumn13.DataPropertyName = "LogDate"
+        Me.DataGridViewTextBoxColumn13.HeaderText = "LogDate"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.DataPropertyName = "TimeIn"
+        Me.DataGridViewTextBoxColumn14.HeaderText = "TimeIn"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn15
+        '
+        Me.DataGridViewTextBoxColumn15.DataPropertyName = "TimeOut"
+        Me.DataGridViewTextBoxColumn15.HeaderText = "TimeOut"
+        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
+        Me.DataGridViewTextBoxColumn15.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn16
+        '
+        Me.DataGridViewTextBoxColumn16.DataPropertyName = "LanchOut"
+        Me.DataGridViewTextBoxColumn16.HeaderText = "LanchOut"
+        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
+        Me.DataGridViewTextBoxColumn16.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.DataPropertyName = "LanchIn"
+        Me.DataGridViewTextBoxColumn17.HeaderText = "LanchIn"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.DataPropertyName = "Section"
+        Me.DataGridViewTextBoxColumn18.HeaderText = "Section"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        '
+        'AttendanceTableBindingSource1
+        '
+        Me.AttendanceTableBindingSource1.DataMember = "AttendanceTable"
+        Me.AttendanceTableBindingSource1.DataSource = Me.MonthlyDataSheet
+        '
+        'MonthlyDataSheet
+        '
+        Me.MonthlyDataSheet.DataSetName = "MonthlyDataSheet"
+        Me.MonthlyDataSheet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'AttendanceTableTableAdapter1
+        '
+        Me.AttendanceTableTableAdapter1.ClearBeforeFill = True
+        '
+        'TableAdapterManager1
+        '
+        Me.TableAdapterManager1.AttendanceTableTableAdapter = Me.AttendanceTableTableAdapter1
+        Me.TableAdapterManager1.BackupDataSetBeforeUpdate = False
+        Me.TableAdapterManager1.UpdateOrder = AttendanceSystem.MonthlyDataSheetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        '
         'In_Out
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -506,9 +675,14 @@ Partial Class In_Out
         CType(Me.AttendanceTableDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.TabPage2.ResumeLayout(False)
         CType(Me.AttendanceTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataSetInOut, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
+        CType(Me.AttendanceTableDataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -560,4 +734,22 @@ Partial Class In_Out
     Friend WithEvents StatusLabel2 As ToolStripStatusLabel
     Friend WithEvents StatusLabel3 As ToolStripStatusLabel
     Friend WithEvents PB_Stamp As PictureBox
+    Friend WithEvents LB_Month As ListBox
+    Friend WithEvents Bu_CheckMonth As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents MonthlyDataSheet As MonthlyDataSheet
+    Friend WithEvents AttendanceTableBindingSource1 As BindingSource
+    Friend WithEvents AttendanceTableTableAdapter1 As MonthlyDataSheetTableAdapters.AttendanceTableTableAdapter
+    Friend WithEvents TableAdapterManager1 As MonthlyDataSheetTableAdapters.TableAdapterManager
+    Friend WithEvents AttendanceTableDataGridView1 As DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn10 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn11 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn12 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn13 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn14 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn15 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn16 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn17 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn18 As DataGridViewTextBoxColumn
+    Friend WithEvents LB_Year As ListBox
 End Class

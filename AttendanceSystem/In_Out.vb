@@ -6,9 +6,9 @@ Public Class In_Out
     Dim sRegTemplate As String = String.Empty
     Dim sRegTemplate10 As String = String.Empty
     Private Sub In_Out_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: This line of code loads data into the 'DataSetInOut.UsersTable' table. You can move, or remove it, as needed.
+        'Me.AttendanceTableTableAdapter1.Fill(Me.MonthlyDataSheet.AttendanceTable)
+
         Me.UsersTableTableAdapter.Fill(Me.DataSetInOut.UsersTable)
-        'TODO: This line of code loads data into the 'DataSetInOut.AttendanceTable' table. You can move, or remove it, as needed.
         Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
         TodayDate = DateAndTime.Today
         La_Date.Text = TodayDate.ToString("d")
@@ -18,7 +18,6 @@ Public Class In_Out
         Size = SystemInformation.PrimaryMonitorMaximizedWindowSize
         'TopMost = True
         'WindowState = 2
-
         If (AxZKFPEngX1.InitEngine = 0) Then
             AxZKFPEngX1.FPEngineVersion = "9"
             Dim fpcHandle As Integer = AxZKFPEngX1.CreateFPCacheDBEx()
@@ -29,6 +28,7 @@ Public Class In_Out
             AxZKFPEngX1.EndEngine()
             StatusLabel3.Text = "Initial Failed"
         End If
+
     End Sub
     Private Sub AxZKFPEngX1_OnCapture(sender As Object, e As IZKFPEngXEvents_OnCaptureEvent) Handles AxZKFPEngX1.OnCapture
         Dim id As Integer = 0
@@ -44,33 +44,21 @@ Public Class In_Out
                 Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) ' stamp have't valid user
                 If CheckifUserReg.Count > 0 Then ' check it user have recored at this day 
                     Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
-                    If isUserHaveRecored.Count > 0 Then
-                        If (isUserHaveRecored.First.TimeIn = TimeSpan.Zero And isUserHaveRecored.First.TimeOut = TimeSpan.Zero) Then 'Or isUserHaveRecored.First.LanchIn = TimeSpan.Zero Or isUserHaveRecored.First.LanchOut = TimeSpan.Zero) Then
-                            AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
-                            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
-                            StatusLabel3.Text = "Verfiy Succeed-you have reg in : " & CheckifUserReg.First.Username
-                            StatusLabel3.ForeColor = Color.Green
-                        Else
-                            MsgBox("You have been reg In ,you can't enter again in same day ... or something wrong!!", MsgBoxStyle.OkOnly, "Error")
-                            StatusLabel3.Text = "Verfiy Failed-have been reg in : " & isUserHaveRecored.First.Username
-                            StatusLabel3.ForeColor = Color.Red
-                        End If
-                        '    If isUserHaveRecored.First.TimeIn <> TimeSpan.Zero Then ' this mean he come early and stamp
-                        '        MsgBox("You have been reg In,you can't enter again in same day", MsgBoxStyle.OkOnly, "Error")
-                        '        StatusLabel3.Text = "Verfiy Failed-have been reg in : " & isUserHaveRecored.First.Username
-                        '        StatusLabel3.ForeColor = Color.Red
-                        '    End If
-                        'ElseIf isUserHaveRecored.First.TimeOut = TimeSpan.Zero Or isUserHaveRecored.First.LanchIn = TimeSpan.Zero Or isUserHaveRecored.First.LanchOut = TimeSpan.Zero Then
-                        '    AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
-                        '    Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
-                        '    StatusLabel3.Text = "Verfiy Succeed-you have reg in : " & CheckifUserReg.First.Username
-                        '    StatusLabel3.ForeColor = Color.Green
-                        'Else
-                        '    MsgBox("You have been reg In,you can't enter again in same day", MsgBoxStyle.OkOnly, "Error")
-                        '    StatusLabel3.Text = "Verfiy Failed-have been reg in : " & isUserHaveRecored.First.Username
-                        '    StatusLabel3.ForeColor = Color.Red
-                    End If
+                    If isUserHaveRecored.Count = 0 Then
+                        'If (isUserHaveRecored.First.TimeIn = TimeSpan.Zero And isUserHaveRecored.First.TimeOut = TimeSpan.Zero) Then 'Or isUserHaveRecored.First.LanchIn = TimeSpan.Zero Or isUserHaveRecored.First.LanchOut = TimeSpan.Zero) Then
+                        AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
+                        Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                        StatusLabel3.Text = "Verfiy Succeed-you have reg in : " & CheckifUserReg.First.Username
+                        StatusLabel3.ForeColor = Color.Green
+                        'End If
                     Else
+                        MsgBox("You have been reg In ,you can't enter again in same day ... or something wrong!!", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Failed-have been reg in"
+                        StatusLabel3.ForeColor = Color.Red
+                        'End If
+                    End If
+                Else
+                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
                     StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
                     StatusLabel3.ForeColor = Color.Red
                 End If
@@ -89,11 +77,16 @@ Public Class In_Out
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
                         Else
                             MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                            StatusLabel3.Text = "Verfiy Failed-have been reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.Text = "Verfiy Failed-have been reg out"
                             StatusLabel3.ForeColor = Color.Red
                         End If
-                    End If
                     Else
+                        MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                        StatusLabel3.ForeColor = Color.Red
+                    End If
+                Else
+                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
                     StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
                     StatusLabel3.ForeColor = Color.Red
                 End If
@@ -112,11 +105,16 @@ Public Class In_Out
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
                         Else
                             MsgBox("You have been reg Lansh out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                            StatusLabel3.Text = "Verfiy Failed-have been reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.Text = "Verfiy Failed-have been reg out"
                             StatusLabel3.ForeColor = Color.Red
                         End If
+                    Else
+                        MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                        StatusLabel3.ForeColor = Color.Red
                     End If
                 Else
+                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
                     StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
                     StatusLabel3.ForeColor = Color.Red
                 End If
@@ -135,13 +133,31 @@ Public Class In_Out
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
                         Else
                             MsgBox("You have been reg Lansh in or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                            StatusLabel3.Text = "Verfiy Failed-have been reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.Text = "Verfiy Failed-have been reg out"
                             StatusLabel3.ForeColor = Color.Red
                         End If
+                    Else
+                        MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                        StatusLabel3.ForeColor = Color.Red
                     End If
                 Else
+                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
                     StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
                     StatusLabel3.ForeColor = Color.Red
+                End If
+                matchType = 0
+            Case 5
+                Dim bTemp As String = String.Empty
+                sTemp = AxZKFPEngX1.GetTemplateAsString()
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                If CheckifUserReg.Count > 0 Then 'check if user in data base
+                    Dim monthIndex As Integer = LB_Month.SelectedIndex + 1
+                    Dim yearIndex As Integer = LB_Year.SelectedItem.ToString
+                    Me.AttendanceTableTableAdapter1.FillByLogDate_UserId(Me.MonthlyDataSheet.AttendanceTable, yearIndex, monthIndex, CheckifUserReg.First.UserID)
+                    'Dim ll = Me.AttendanceTableTableAdapter1.GetDataByLogDate(queryDate)
+                Else
+                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
                 End If
                 matchType = 0
         End Select
@@ -209,5 +225,17 @@ Public Class In_Out
         End If
         StatusLabel3.Text = "Verify Lansh In"
         matchType = 4
+    End Sub
+
+    Private Sub Bu_CheckMonth_Click(sender As Object, e As EventArgs) Handles Bu_CheckMonth.Click
+        If (LB_Month.SelectedIndex >= 0 And LB_Year.SelectedIndex >= 0) Then
+            If (AxZKFPEngX1.IsRegister()) Then
+                AxZKFPEngX1.CancelEnroll()
+            End If
+            StatusLabel3.Text = "Verify Stamp"
+            matchType = 5
+        Else
+            MsgBox("pls chose month and Year to show ", MsgBoxStyle.OkOnly, "Error")
+        End If
     End Sub
 End Class
