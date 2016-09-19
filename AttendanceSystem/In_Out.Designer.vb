@@ -28,6 +28,8 @@ Partial Class In_Out
         Me.AxZKFPEngX1 = New AxZKFPEngXControl.AxZKFPEngX()
         Me.AttendanceTableBindingNavigator = New System.Windows.Forms.BindingNavigator(Me.components)
         Me.BindingNavigatorAddNewItem = New System.Windows.Forms.ToolStripButton()
+        Me.AttendanceTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DataSetInOut = New AttendanceSystem.DataSetInOut()
         Me.BindingNavigatorCountItem = New System.Windows.Forms.ToolStripLabel()
         Me.BindingNavigatorDeleteItem = New System.Windows.Forms.ToolStripButton()
         Me.BindingNavigatorMoveFirstItem = New System.Windows.Forms.ToolStripButton()
@@ -41,6 +43,7 @@ Partial Class In_Out
         Me.AttendanceTableBindingNavigatorSaveItem = New System.Windows.Forms.ToolStripButton()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Bu_AdminPrint = New System.Windows.Forms.Button()
         Me.PB_Stamp = New System.Windows.Forms.PictureBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -51,10 +54,6 @@ Partial Class In_Out
         Me.Bu_Out = New System.Windows.Forms.Button()
         Me.Bu_In = New System.Windows.Forms.Button()
         Me.AttendanceTableDataGridView = New System.Windows.Forms.DataGridView()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.La_Time = New System.Windows.Forms.Label()
-        Me.La_Date = New System.Windows.Forms.Label()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -64,17 +63,13 @@ Partial Class In_Out
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AttendanceTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DataSetInOut = New AttendanceSystem.DataSetInOut()
-        Me.AttendanceTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.AttendanceTableTableAdapter()
-        Me.TableAdapterManager = New AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager()
-        Me.UsersTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.UsersTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.UsersTableTableAdapter()
-        Me.LB_Month = New System.Windows.Forms.ListBox()
-        Me.Bu_CheckMonth = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.La_Time = New System.Windows.Forms.Label()
+        Me.La_Date = New System.Windows.Forms.Label()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.LB_Year = New System.Windows.Forms.ListBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.AttendanceTableDataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.LB_Year = New System.Windows.Forms.ListBox()
         Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -86,11 +81,22 @@ Partial Class In_Out
         Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AttendanceTableBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.MonthlyDataSheet = New AttendanceSystem.MonthlyDataSheet()
+        Me.Bu_CheckMonth = New System.Windows.Forms.Button()
+        Me.LB_Month = New System.Windows.Forms.ListBox()
+        Me.AttendanceTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.AttendanceTableTableAdapter()
+        Me.TableAdapterManager = New AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager()
+        Me.UsersTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.UsersTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.UsersTableTableAdapter()
         Me.AttendanceTableTableAdapter1 = New AttendanceSystem.MonthlyDataSheetTableAdapters.AttendanceTableTableAdapter()
         Me.TableAdapterManager1 = New AttendanceSystem.MonthlyDataSheetTableAdapters.TableAdapterManager()
+        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
+        Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.AxZKFPEngX1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AttendanceTableBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AttendanceTableBindingNavigator.SuspendLayout()
+        CType(Me.AttendanceTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataSetInOut, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.PB_Stamp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -98,13 +104,11 @@ Partial Class In_Out
         CType(Me.AttendanceTableDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        CType(Me.AttendanceTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataSetInOut, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.AttendanceTableDataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Timer_DateCheck
@@ -148,6 +152,16 @@ Partial Class In_Out
         Me.BindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = True
         Me.BindingNavigatorAddNewItem.Size = New System.Drawing.Size(23, 22)
         Me.BindingNavigatorAddNewItem.Text = "Add new"
+        '
+        'AttendanceTableBindingSource
+        '
+        Me.AttendanceTableBindingSource.DataMember = "AttendanceTable"
+        Me.AttendanceTableBindingSource.DataSource = Me.DataSetInOut
+        '
+        'DataSetInOut
+        '
+        Me.DataSetInOut.DataSetName = "DataSetInOut"
+        Me.DataSetInOut.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'BindingNavigatorCountItem
         '
@@ -248,6 +262,8 @@ Partial Class In_Out
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.SteelBlue
+        Me.TabPage1.Controls.Add(Me.Button1)
+        Me.TabPage1.Controls.Add(Me.Bu_AdminPrint)
         Me.TabPage1.Controls.Add(Me.PB_Stamp)
         Me.TabPage1.Controls.Add(Me.StatusStrip1)
         Me.TabPage1.Controls.Add(Me.Bu_BreakOut)
@@ -263,10 +279,21 @@ Partial Class In_Out
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Attendance Page"
         '
+        'Bu_AdminPrint
+        '
+        Me.Bu_AdminPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Bu_AdminPrint.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Bu_AdminPrint.Location = New System.Drawing.Point(900, 643)
+        Me.Bu_AdminPrint.Name = "Bu_AdminPrint"
+        Me.Bu_AdminPrint.Size = New System.Drawing.Size(183, 113)
+        Me.Bu_AdminPrint.TabIndex = 17
+        Me.Bu_AdminPrint.Text = "Admin Print"
+        Me.Bu_AdminPrint.UseVisualStyleBackColor = True
+        '
         'PB_Stamp
         '
         Me.PB_Stamp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PB_Stamp.Location = New System.Drawing.Point(387, 648)
+        Me.PB_Stamp.Location = New System.Drawing.Point(379, 648)
         Me.PB_Stamp.Name = "PB_Stamp"
         Me.PB_Stamp.Size = New System.Drawing.Size(156, 108)
         Me.PB_Stamp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -307,7 +334,7 @@ Partial Class In_Out
         Me.Bu_BreakOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Bu_BreakOut.Enabled = False
         Me.Bu_BreakOut.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Bu_BreakOut.Location = New System.Drawing.Point(549, 644)
+        Me.Bu_BreakOut.Location = New System.Drawing.Point(539, 644)
         Me.Bu_BreakOut.Name = "Bu_BreakOut"
         Me.Bu_BreakOut.Size = New System.Drawing.Size(183, 113)
         Me.Bu_BreakOut.TabIndex = 14
@@ -319,7 +346,7 @@ Partial Class In_Out
         Me.Bu_BreakIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Bu_BreakIn.Enabled = False
         Me.Bu_BreakIn.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Bu_BreakIn.Location = New System.Drawing.Point(736, 644)
+        Me.Bu_BreakIn.Location = New System.Drawing.Point(725, 644)
         Me.Bu_BreakIn.Name = "Bu_BreakIn"
         Me.Bu_BreakIn.Size = New System.Drawing.Size(183, 113)
         Me.Bu_BreakIn.TabIndex = 13
@@ -330,7 +357,7 @@ Partial Class In_Out
         '
         Me.Bu_Out.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Bu_Out.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Bu_Out.Location = New System.Drawing.Point(197, 644)
+        Me.Bu_Out.Location = New System.Drawing.Point(193, 644)
         Me.Bu_Out.Name = "Bu_Out"
         Me.Bu_Out.Size = New System.Drawing.Size(183, 113)
         Me.Bu_Out.TabIndex = 12
@@ -367,60 +394,6 @@ Partial Class In_Out
         Me.AttendanceTableDataGridView.Name = "AttendanceTableDataGridView"
         Me.AttendanceTableDataGridView.Size = New System.Drawing.Size(1264, 521)
         Me.AttendanceTableDataGridView.TabIndex = 10
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.BackColor = System.Drawing.Color.SteelBlue
-        Me.GroupBox1.Controls.Add(Me.La_Time)
-        Me.GroupBox1.Controls.Add(Me.La_Date)
-        Me.GroupBox1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(8, 5)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1264, 106)
-        Me.GroupBox1.TabIndex = 9
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Time and Clock"
-        '
-        'La_Time
-        '
-        Me.La_Time.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.La_Time.AutoSize = True
-        Me.La_Time.Font = New System.Drawing.Font("Tahoma", 48.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.La_Time.ForeColor = System.Drawing.Color.Maroon
-        Me.La_Time.Location = New System.Drawing.Point(665, 23)
-        Me.La_Time.Name = "La_Time"
-        Me.La_Time.Size = New System.Drawing.Size(246, 77)
-        Me.La_Time.TabIndex = 1
-        Me.La_Time.Text = "Label1"
-        '
-        'La_Date
-        '
-        Me.La_Date.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.La_Date.AutoSize = True
-        Me.La_Date.Font = New System.Drawing.Font("Tahoma", 48.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.La_Date.ForeColor = System.Drawing.Color.Maroon
-        Me.La_Date.Location = New System.Drawing.Point(184, 23)
-        Me.La_Date.Name = "La_Date"
-        Me.La_Date.Size = New System.Drawing.Size(246, 77)
-        Me.La_Date.TabIndex = 0
-        Me.La_Date.Text = "Label1"
-        '
-        'TabPage2
-        '
-        Me.TabPage2.BackColor = System.Drawing.Color.SteelBlue
-        Me.TabPage2.Controls.Add(Me.LB_Year)
-        Me.TabPage2.Controls.Add(Me.GroupBox2)
-        Me.TabPage2.Controls.Add(Me.Bu_CheckMonth)
-        Me.TabPage2.Controls.Add(Me.LB_Month)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 28)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1281, 788)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Inquiry Page"
         '
         'DataGridViewTextBoxColumn1
         '
@@ -478,54 +451,69 @@ Partial Class In_Out
         Me.DataGridViewTextBoxColumn9.HeaderText = "Section"
         Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
         '
-        'AttendanceTableBindingSource
+        'GroupBox1
         '
-        Me.AttendanceTableBindingSource.DataMember = "AttendanceTable"
-        Me.AttendanceTableBindingSource.DataSource = Me.DataSetInOut
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.BackColor = System.Drawing.Color.SteelBlue
+        Me.GroupBox1.Controls.Add(Me.La_Time)
+        Me.GroupBox1.Controls.Add(Me.La_Date)
+        Me.GroupBox1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(8, 5)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(1264, 106)
+        Me.GroupBox1.TabIndex = 9
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Time and Clock"
         '
-        'DataSetInOut
+        'La_Time
         '
-        Me.DataSetInOut.DataSetName = "DataSetInOut"
-        Me.DataSetInOut.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        Me.La_Time.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.La_Time.AutoSize = True
+        Me.La_Time.Font = New System.Drawing.Font("Tahoma", 48.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.La_Time.ForeColor = System.Drawing.Color.Maroon
+        Me.La_Time.Location = New System.Drawing.Point(665, 23)
+        Me.La_Time.Name = "La_Time"
+        Me.La_Time.Size = New System.Drawing.Size(246, 77)
+        Me.La_Time.TabIndex = 1
+        Me.La_Time.Text = "Label1"
         '
-        'AttendanceTableTableAdapter
+        'La_Date
         '
-        Me.AttendanceTableTableAdapter.ClearBeforeFill = True
+        Me.La_Date.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.La_Date.AutoSize = True
+        Me.La_Date.Font = New System.Drawing.Font("Tahoma", 48.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.La_Date.ForeColor = System.Drawing.Color.Maroon
+        Me.La_Date.Location = New System.Drawing.Point(184, 23)
+        Me.La_Date.Name = "La_Date"
+        Me.La_Date.Size = New System.Drawing.Size(246, 77)
+        Me.La_Date.TabIndex = 0
+        Me.La_Date.Text = "Label1"
         '
-        'TableAdapterManager
+        'TabPage2
         '
-        Me.TableAdapterManager.AttendanceTableTableAdapter = Me.AttendanceTableTableAdapter
-        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.UpdateOrder = AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
-        Me.TableAdapterManager.UsersTableTableAdapter = Nothing
+        Me.TabPage2.BackColor = System.Drawing.Color.SteelBlue
+        Me.TabPage2.Controls.Add(Me.LB_Year)
+        Me.TabPage2.Controls.Add(Me.GroupBox2)
+        Me.TabPage2.Controls.Add(Me.Bu_CheckMonth)
+        Me.TabPage2.Controls.Add(Me.LB_Month)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 28)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(1281, 788)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Inquiry Page"
         '
-        'UsersTableBindingSource
+        'LB_Year
         '
-        Me.UsersTableBindingSource.DataMember = "UsersTable"
-        Me.UsersTableBindingSource.DataSource = Me.DataSetInOut
-        '
-        'UsersTableTableAdapter
-        '
-        Me.UsersTableTableAdapter.ClearBeforeFill = True
-        '
-        'LB_Month
-        '
-        Me.LB_Month.FormattingEnabled = True
-        Me.LB_Month.ItemHeight = 19
-        Me.LB_Month.Items.AddRange(New Object() {"1-January", "2-February", "3-March", "4-April", "5-May", "6-June", "7-July", "8-August", "9-September", "10-October", "11-November", "12-December"})
-        Me.LB_Month.Location = New System.Drawing.Point(11, 127)
-        Me.LB_Month.Name = "LB_Month"
-        Me.LB_Month.Size = New System.Drawing.Size(122, 232)
-        Me.LB_Month.TabIndex = 0
-        '
-        'Bu_CheckMonth
-        '
-        Me.Bu_CheckMonth.Location = New System.Drawing.Point(11, 365)
-        Me.Bu_CheckMonth.Name = "Bu_CheckMonth"
-        Me.Bu_CheckMonth.Size = New System.Drawing.Size(120, 45)
-        Me.Bu_CheckMonth.TabIndex = 1
-        Me.Bu_CheckMonth.Text = "Log me In"
-        Me.Bu_CheckMonth.UseVisualStyleBackColor = True
+        Me.LB_Year.FormattingEnabled = True
+        Me.LB_Year.ItemHeight = 19
+        Me.LB_Year.Items.AddRange(New Object() {"2016", "2017", "2018", "2019"})
+        Me.LB_Year.Location = New System.Drawing.Point(11, 41)
+        Me.LB_Year.Name = "LB_Year"
+        Me.LB_Year.Size = New System.Drawing.Size(122, 80)
+        Me.LB_Year.TabIndex = 3
         '
         'GroupBox2
         '
@@ -556,16 +544,6 @@ Partial Class In_Out
         Me.AttendanceTableDataGridView1.ReadOnly = True
         Me.AttendanceTableDataGridView1.Size = New System.Drawing.Size(1112, 622)
         Me.AttendanceTableDataGridView1.TabIndex = 0
-        '
-        'LB_Year
-        '
-        Me.LB_Year.FormattingEnabled = True
-        Me.LB_Year.ItemHeight = 19
-        Me.LB_Year.Items.AddRange(New Object() {"2016", "2017", "2018", "2019"})
-        Me.LB_Year.Location = New System.Drawing.Point(11, 41)
-        Me.LB_Year.Name = "LB_Year"
-        Me.LB_Year.Size = New System.Drawing.Size(122, 80)
-        Me.LB_Year.TabIndex = 3
         '
         'DataGridViewTextBoxColumn10
         '
@@ -640,6 +618,45 @@ Partial Class In_Out
         Me.MonthlyDataSheet.DataSetName = "MonthlyDataSheet"
         Me.MonthlyDataSheet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
+        'Bu_CheckMonth
+        '
+        Me.Bu_CheckMonth.Location = New System.Drawing.Point(11, 365)
+        Me.Bu_CheckMonth.Name = "Bu_CheckMonth"
+        Me.Bu_CheckMonth.Size = New System.Drawing.Size(120, 45)
+        Me.Bu_CheckMonth.TabIndex = 1
+        Me.Bu_CheckMonth.Text = "Log me In"
+        Me.Bu_CheckMonth.UseVisualStyleBackColor = True
+        '
+        'LB_Month
+        '
+        Me.LB_Month.FormattingEnabled = True
+        Me.LB_Month.ItemHeight = 19
+        Me.LB_Month.Items.AddRange(New Object() {"1-January", "2-February", "3-March", "4-April", "5-May", "6-June", "7-July", "8-August", "9-September", "10-October", "11-November", "12-December"})
+        Me.LB_Month.Location = New System.Drawing.Point(11, 127)
+        Me.LB_Month.Name = "LB_Month"
+        Me.LB_Month.Size = New System.Drawing.Size(122, 232)
+        Me.LB_Month.TabIndex = 0
+        '
+        'AttendanceTableTableAdapter
+        '
+        Me.AttendanceTableTableAdapter.ClearBeforeFill = True
+        '
+        'TableAdapterManager
+        '
+        Me.TableAdapterManager.AttendanceTableTableAdapter = Me.AttendanceTableTableAdapter
+        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
+        Me.TableAdapterManager.UpdateOrder = AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UsersTableTableAdapter = Nothing
+        '
+        'UsersTableBindingSource
+        '
+        Me.UsersTableBindingSource.DataMember = "UsersTable"
+        Me.UsersTableBindingSource.DataSource = Me.DataSetInOut
+        '
+        'UsersTableTableAdapter
+        '
+        Me.UsersTableTableAdapter.ClearBeforeFill = True
+        '
         'AttendanceTableTableAdapter1
         '
         Me.AttendanceTableTableAdapter1.ClearBeforeFill = True
@@ -649,6 +666,27 @@ Partial Class In_Out
         Me.TableAdapterManager1.AttendanceTableTableAdapter = Me.AttendanceTableTableAdapter1
         Me.TableAdapterManager1.BackupDataSetBeforeUpdate = False
         Me.TableAdapterManager1.UpdateOrder = AttendanceSystem.MonthlyDataSheetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        '
+        'PrintPreviewDialog1
+        '
+        Me.PrintPreviewDialog1.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.PrintPreviewDialog1.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.PrintPreviewDialog1.ClientSize = New System.Drawing.Size(400, 300)
+        Me.PrintPreviewDialog1.Enabled = True
+        Me.PrintPreviewDialog1.Icon = CType(resources.GetObject("PrintPreviewDialog1.Icon"), System.Drawing.Icon)
+        Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
+        Me.PrintPreviewDialog1.Visible = False
+        '
+        'Button1
+        '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Button1.Location = New System.Drawing.Point(1084, 643)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(183, 113)
+        Me.Button1.TabIndex = 18
+        Me.Button1.Text = "Admin Print"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'In_Out
         '
@@ -666,6 +704,8 @@ Partial Class In_Out
         CType(Me.AttendanceTableBindingNavigator, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AttendanceTableBindingNavigator.ResumeLayout(False)
         Me.AttendanceTableBindingNavigator.PerformLayout()
+        CType(Me.AttendanceTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataSetInOut, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -676,13 +716,11 @@ Partial Class In_Out
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
-        CType(Me.AttendanceTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataSetInOut, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.AttendanceTableDataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -752,4 +790,8 @@ Partial Class In_Out
     Friend WithEvents DataGridViewTextBoxColumn17 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn18 As DataGridViewTextBoxColumn
     Friend WithEvents LB_Year As ListBox
+    Friend WithEvents Bu_AdminPrint As Button
+    Friend WithEvents PrintDocument1 As Printing.PrintDocument
+    Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
+    Friend WithEvents Button1 As Button
 End Class

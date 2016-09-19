@@ -16,3 +16,5 @@ D:\Code\AttendanceSystem\AttendanceSystem\obj\x86\Debug\AttendanceSystem.pdb
 D:\Code\AttendanceSystem\AttendanceSystem\obj\x86\Debug\AttendanceSystem.vbprojResolveAssemblyReference.cache
 D:\Code\AttendanceSystem\AttendanceSystem\obj\x86\Debug\AttendanceSystem.RegisteringUsers.resources
 D:\Code\AttendanceSystem\AttendanceSystem\obj\x86\Debug\AttendanceSystem.In_Out.resources
+D:\Code\AttendanceSystem\AttendanceSystem\bin\x86\Debug\GridLib.pdb
+D:\Code\AttendanceSystem\AttendanceSystem\bin\x86\Debug\GridLib.dll

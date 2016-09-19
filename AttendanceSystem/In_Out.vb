@@ -1,13 +1,24 @@
-﻿Imports AxZKFPEngXControl
+﻿Imports System.Drawing.Printing
+Imports AxZKFPEngXControl
+Imports GridPrintPreviewLib
+
 Public Class In_Out
     Dim TodayDate As Date
     'Dim TimeSpanX As TimeSpan = Date.Now.TimeOfDay
     Dim matchType As Integer = 0
     Dim sRegTemplate As String = String.Empty
     Dim sRegTemplate10 As String = String.Empty
+    'Private Structure pageDetails
+    '    Dim columns As Integer
+    '    Dim rows As Integer
+    '    Dim startCol As Integer
+    '    Dim startRow As Integer
+    'End Structure
+    'Private pages As Dictionary(Of Integer, pageDetails)
+    'Dim maxPagesWide As Integer
+    'Dim maxPagesTall As Integer
     Private Sub In_Out_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Me.AttendanceTableTableAdapter1.Fill(Me.MonthlyDataSheet.AttendanceTable)
-
         Me.UsersTableTableAdapter.Fill(Me.DataSetInOut.UsersTable)
         Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
         TodayDate = DateAndTime.Today
@@ -28,6 +39,8 @@ Public Class In_Out
             AxZKFPEngX1.EndEngine()
             StatusLabel3.Text = "Initial Failed"
         End If
+
+
 
     End Sub
     Private Sub AxZKFPEngX1_OnCapture(sender As Object, e As IZKFPEngXEvents_OnCaptureEvent) Handles AxZKFPEngX1.OnCapture
@@ -237,5 +250,36 @@ Public Class In_Out
         Else
             MsgBox("pls chose month and Year to show ", MsgBoxStyle.OkOnly, "Error")
         End If
+    End Sub
+
+    Private Sub Bu_AdminPrint_Click(sender As Object, e As EventArgs) Handles Bu_AdminPrint.Click
+        'PrintDocument1.Print()
+        Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView, Me.AttendanceTableDataGridView.Font, True)
+        doc.DocumentName = "Preview Test"
+        Dim printPreviewDialog As New PrintPreviewDialog()
+        printPreviewDialog.ClientSize = New Size(400, 300)
+        printPreviewDialog.Location = New Point(2, 2)
+        printPreviewDialog.Name = "Print Preview Dialog"
+        printPreviewDialog.UseAntiAlias = True
+        printPreviewDialog.Document = doc
+        'printPreviewDialog.ShowDialog()
+        doc.DrawCellBox = True
+        doc.DefaultPageSettings.Landscape = True
+        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 800, 800)  ' 8.27, 11.69)
+        Dim Scale As Single = doc.CalcScaleForFit()
+        doc.ScaleFactor = 0.31 'scale
+
+        printPreviewDialog = New PrintPreviewDialog()
+        printPreviewDialog.ClientSize = New Size(400, 300)
+        printPreviewDialog.Location = New Point(2, 2)
+        printPreviewDialog.Name = "PrintPreviewDialog1"
+        printPreviewDialog.UseAntiAlias = True
+        doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+        printPreviewDialog.Document = doc
+        printPreviewDialog.ShowDialog()
+
+        doc.Dispose()
+        doc = Nothing
+
     End Sub
 End Class
