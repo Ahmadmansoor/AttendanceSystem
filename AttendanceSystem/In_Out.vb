@@ -8,6 +8,7 @@ Public Class In_Out
     Dim matchType As Integer = 0
     Dim sRegTemplate As String = String.Empty
     Dim sRegTemplate10 As String = String.Empty
+    Dim tempUserName As String = String.Empty
     'Private Structure pageDetails
     '    Dim columns As Integer
     '    Dim rows As Integer
@@ -168,9 +169,24 @@ Public Class In_Out
                     Dim monthIndex As Integer = LB_Month.SelectedIndex + 1
                     Dim yearIndex As Integer = LB_Year.SelectedItem.ToString
                     Me.AttendanceTableTableAdapter1.FillByLogDate_UserId(Me.MonthlyDataSheet.AttendanceTable, yearIndex, monthIndex, CheckifUserReg.First.UserID)
-                    'Dim ll = Me.AttendanceTableTableAdapter1.GetDataByLogDate(queryDate)
+                    tempUserName = CheckifUserReg.First.Username
+                    ToolStripStatusLabel3.Text = "Verfiy Succeed you can Print"
                 Else
                     MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                End If
+
+                matchType = 0
+            Case 6
+                Dim bTemp As String = String.Empty
+                sTemp = AxZKFPEngX1.GetTemplateAsString()
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                If CheckifUserReg.Count > 0 Then 'check if user in data base
+                    If CheckifUserReg.First.UserLevel = "Admin" Then
+                        Bu_AdminPrint.Enabled = True
+                        Bu_PrintExcel.Enabled = True
+                    End If
+                Else
+                        MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
                 End If
                 matchType = 0
         End Select
@@ -245,41 +261,174 @@ Public Class In_Out
             If (AxZKFPEngX1.IsRegister()) Then
                 AxZKFPEngX1.CancelEnroll()
             End If
-            StatusLabel3.Text = "Verify Stamp"
+            ToolStripStatusLabel3.Text = "Verify Stamp"
             matchType = 5
+            Bu_PrintUser.Enabled = True
+            Bu_ExcelUser.Enabled = True
         Else
             MsgBox("pls chose month and Year to show ", MsgBoxStyle.OkOnly, "Error")
         End If
     End Sub
 
     Private Sub Bu_AdminPrint_Click(sender As Object, e As EventArgs) Handles Bu_AdminPrint.Click
-        'PrintDocument1.Print()
+        ''PrintDocument1.Print()
+        'Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView, Me.AttendanceTableDataGridView.Font, True)
+        'doc.DocumentName = "Preview Test"
+        'Dim printPreviewDialog As New PrintPreviewDialog()
+        'printPreviewDialog.ClientSize = New Size(400, 300)
+        'printPreviewDialog.Location = New Point(2, 2)
+        'printPreviewDialog.Name = "Print Preview Dialog"
+        'printPreviewDialog.UseAntiAlias = True
+        'printPreviewDialog.Document = doc
+        ''printPreviewDialog.ShowDialog()
+        'doc.DrawCellBox = True
+        'doc.DefaultPageSettings.Landscape = True
+        ''doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 800, 800)  ' 8.27, 11.69)
+        'Dim Scale As Single = doc.CalcScaleForFit()
+        'doc.ScaleFactor = 0.31 'scale
+
+        'printPreviewDialog = New PrintPreviewDialog()
+        'printPreviewDialog.ClientSize = New Size(400, 300)
+        'printPreviewDialog.Location = New Point(2, 2)
+        'printPreviewDialog.Name = "PrintPreviewDialog1"
+        'printPreviewDialog.UseAntiAlias = True
+        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+        'printPreviewDialog.Document = doc
+        'printPreviewDialog.ShowDialog()
+
+        'doc.Dispose()
+        'doc = Nothing
         Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView, Me.AttendanceTableDataGridView.Font, True)
         doc.DocumentName = "Preview Test"
         Dim printPreviewDialog As New PrintPreviewDialog()
-        printPreviewDialog.ClientSize = New Size(400, 300)
+        printPreviewDialog.ClientSize = New Size(600, 800)
         printPreviewDialog.Location = New Point(2, 2)
         printPreviewDialog.Name = "Print Preview Dialog"
         printPreviewDialog.UseAntiAlias = True
         printPreviewDialog.Document = doc
-        'printPreviewDialog.ShowDialog()
         doc.DrawCellBox = True
         doc.DefaultPageSettings.Landscape = True
-        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 800, 800)  ' 8.27, 11.69)
-        Dim Scale As Single = doc.CalcScaleForFit()
-        doc.ScaleFactor = 0.31 'scale
-
-        printPreviewDialog = New PrintPreviewDialog()
-        printPreviewDialog.ClientSize = New Size(400, 300)
-        printPreviewDialog.Location = New Point(2, 2)
-        printPreviewDialog.Name = "PrintPreviewDialog1"
-        printPreviewDialog.UseAntiAlias = True
-        doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+        doc.ScaleFactor = 0.6 'scale
+        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+        doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
         printPreviewDialog.Document = doc
         printPreviewDialog.ShowDialog()
 
         doc.Dispose()
         doc = Nothing
+        Bu_AdminPrint.Enabled = False
+        Bu_PrintExcel.Enabled = False
+    End Sub
 
+    Private Sub Bu_AccessPrint_Click(sender As Object, e As EventArgs) Handles Bu_AccessPrint.Click
+        If (AxZKFPEngX1.IsRegister()) Then
+            AxZKFPEngX1.CancelEnroll()
+        End If
+        StatusLabel3.Text = "Verify Admin Print"
+        matchType = 6
+    End Sub
+
+    Private Sub Bu_PrintUser_Click(sender As Object, e As EventArgs) Handles Bu_PrintUser.Click
+        Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView1, Me.AttendanceTableDataGridView1.Font, True)
+        doc.DocumentName = "Preview Test"
+        Dim printPreviewDialog As New PrintPreviewDialog()
+        printPreviewDialog.ClientSize = New Size(600, 800)
+        printPreviewDialog.Location = New Point(2, 2)
+        printPreviewDialog.Name = "Print Preview Dialog"
+        printPreviewDialog.UseAntiAlias = True
+        printPreviewDialog.Document = doc
+        doc.DrawCellBox = True
+        doc.DefaultPageSettings.Landscape = True
+        doc.ScaleFactor = 0.6 'scale
+        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+        doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
+        printPreviewDialog.Document = doc
+        printPreviewDialog.ShowDialog()
+
+        doc.Dispose()
+        doc = Nothing
+        Bu_PrintUser.Enabled = False
+        Bu_ExcelUser.Enabled = False
+    End Sub
+
+    Private Sub Bu_PrintExcel_Click(sender As Object, e As EventArgs) Handles Bu_PrintExcel.Click
+        Dim xlApp As Microsoft.Office.Interop.Excel.Application = New Microsoft.Office.Interop.Excel.Application
+        Dim xlWorkBook As Microsoft.Office.Interop.Excel.Workbook
+        Dim xlWorkSheet As Microsoft.Office.Interop.Excel.Worksheet
+        Dim misValue As Object = System.Reflection.Missing.Value
+        xlWorkBook = xlApp.Workbooks.Add(misValue)
+        xlWorkSheet = xlWorkBook.Sheets("Sheet1")
+        For i = 0 To AttendanceTableDataGridView.RowCount - 1
+            For j = 2 To AttendanceTableDataGridView.ColumnCount - 1 'For j = 0 To AttendanceTableDataGridView.ColumnCount - 1
+                For k = 3 To AttendanceTableDataGridView.Columns.Count 'For k = 1 To AttendanceTableDataGridView.Columns.Count
+                    xlWorkSheet.Cells(1, k) = AttendanceTableDataGridView.Columns(k - 1).HeaderText
+                    xlWorkSheet.Cells(i + 2, j + 1) = AttendanceTableDataGridView(j, i).Value.ToString
+                Next
+            Next
+        Next
+        Try
+            xlWorkSheet.SaveAs("\\192.168.0.5\Data\MainBackup\data\DataSheet\ " + DateAndTime.Now.Month.ToString + "-" + DateAndTime.Now.Year.ToString + "xlsx")
+            xlWorkBook.Close()
+            xlApp.Quit()
+            releaseObject(xlApp)
+            releaseObject(xlWorkBook)
+            releaseObject(xlWorkSheet)
+            MsgBox("File have been Created at DataSheet Folder on the Server", MsgBoxStyle.OkOnly, "Done")
+        Catch ex As Exception
+            xlWorkBook.Close()
+            xlApp.Quit()
+            releaseObject(xlApp)
+            releaseObject(xlWorkBook)
+            releaseObject(xlWorkSheet)
+            MsgBox(ex.ToString, MsgBoxStyle.OkOnly, "Error")
+        End Try
+        Bu_AdminPrint.Enabled = False
+        Bu_PrintExcel.Enabled = False
+    End Sub
+    Private Sub releaseObject(ByVal obj As Object)
+        Try
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
+            obj = Nothing
+        Catch ex As Exception
+            obj = Nothing
+        Finally
+            GC.Collect()
+        End Try
+    End Sub
+
+    Private Sub Bu_ExcelUser_Click(sender As Object, e As EventArgs) Handles Bu_ExcelUser.Click
+        Dim xlApp As Microsoft.Office.Interop.Excel.Application = New Microsoft.Office.Interop.Excel.Application
+        Dim xlWorkBook As Microsoft.Office.Interop.Excel.Workbook
+        Dim xlWorkSheet As Microsoft.Office.Interop.Excel.Worksheet
+        Dim misValue As Object = System.Reflection.Missing.Value
+        xlWorkBook = xlApp.Workbooks.Add(misValue)
+        xlWorkSheet = xlWorkBook.Sheets("Sheet1")
+        For i = 0 To AttendanceTableDataGridView1.RowCount - 1
+            For j = 2 To AttendanceTableDataGridView1.ColumnCount - 1
+                For k = 3 To AttendanceTableDataGridView1.Columns.Count
+                    xlWorkSheet.Cells(1, k) = AttendanceTableDataGridView1.Columns(k - 1).HeaderText
+                    xlWorkSheet.Cells(i + 2, j + 1) = AttendanceTableDataGridView1(j, i).Value.ToString
+                Next
+            Next
+        Next
+        Try
+            xlWorkSheet.SaveAs("\\192.168.0.5\Data\MainBackup\data\DataSheet\" + tempUserName + "-" + DateAndTime.Now.Month.ToString + "-" + DateAndTime.Now.Year.ToString + "xlsx")
+            xlWorkBook.Close()
+            xlApp.Quit()
+            releaseObject(xlApp)
+            releaseObject(xlWorkBook)
+            releaseObject(xlWorkSheet)
+            MsgBox("File have been Created at DataSheet Folder on the Server", MsgBoxStyle.OkOnly, "Done")
+        Catch ex As Exception
+            xlWorkBook.Close()
+            xlApp.Quit()
+            releaseObject(xlApp)
+            releaseObject(xlWorkBook)
+            releaseObject(xlWorkSheet)
+            MsgBox(ex.ToString, MsgBoxStyle.OkOnly, "Error")
+        End Try
+        tempUserName = ""
+        Bu_PrintUser.Enabled = False
+        Bu_ExcelUser.Enabled = False
     End Sub
 End Class

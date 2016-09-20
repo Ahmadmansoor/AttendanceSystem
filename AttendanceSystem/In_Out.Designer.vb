@@ -70,15 +70,6 @@ Partial Class In_Out
         Me.LB_Year = New System.Windows.Forms.ListBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.AttendanceTableDataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AttendanceTableBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.MonthlyDataSheet = New AttendanceSystem.MonthlyDataSheet()
         Me.Bu_CheckMonth = New System.Windows.Forms.Button()
@@ -91,7 +82,23 @@ Partial Class In_Out
         Me.TableAdapterManager1 = New AttendanceSystem.MonthlyDataSheetTableAdapters.TableAdapterManager()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Bu_PrintExcel = New System.Windows.Forms.Button()
+        Me.Bu_AccessPrint = New System.Windows.Forms.Button()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Bu_ExcelUser = New System.Windows.Forms.Button()
+        Me.Bu_PrintUser = New System.Windows.Forms.Button()
+        Me.StatusStrip2 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.AxZKFPEngX1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AttendanceTableBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AttendanceTableBindingNavigator.SuspendLayout()
@@ -109,6 +116,7 @@ Partial Class In_Out
         CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Timer_DateCheck
@@ -262,7 +270,8 @@ Partial Class In_Out
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.SteelBlue
-        Me.TabPage1.Controls.Add(Me.Button1)
+        Me.TabPage1.Controls.Add(Me.Bu_AccessPrint)
+        Me.TabPage1.Controls.Add(Me.Bu_PrintExcel)
         Me.TabPage1.Controls.Add(Me.Bu_AdminPrint)
         Me.TabPage1.Controls.Add(Me.PB_Stamp)
         Me.TabPage1.Controls.Add(Me.StatusStrip1)
@@ -282,10 +291,11 @@ Partial Class In_Out
         'Bu_AdminPrint
         '
         Me.Bu_AdminPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Bu_AdminPrint.Enabled = False
         Me.Bu_AdminPrint.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Bu_AdminPrint.Location = New System.Drawing.Point(900, 643)
+        Me.Bu_AdminPrint.Location = New System.Drawing.Point(901, 698)
         Me.Bu_AdminPrint.Name = "Bu_AdminPrint"
-        Me.Bu_AdminPrint.Size = New System.Drawing.Size(183, 113)
+        Me.Bu_AdminPrint.Size = New System.Drawing.Size(183, 59)
         Me.Bu_AdminPrint.TabIndex = 17
         Me.Bu_AdminPrint.Text = "Admin Print"
         Me.Bu_AdminPrint.UseVisualStyleBackColor = True
@@ -334,7 +344,7 @@ Partial Class In_Out
         Me.Bu_BreakOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Bu_BreakOut.Enabled = False
         Me.Bu_BreakOut.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Bu_BreakOut.Location = New System.Drawing.Point(539, 644)
+        Me.Bu_BreakOut.Location = New System.Drawing.Point(541, 644)
         Me.Bu_BreakOut.Name = "Bu_BreakOut"
         Me.Bu_BreakOut.Size = New System.Drawing.Size(183, 113)
         Me.Bu_BreakOut.TabIndex = 14
@@ -494,6 +504,9 @@ Partial Class In_Out
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.SteelBlue
+        Me.TabPage2.Controls.Add(Me.StatusStrip2)
+        Me.TabPage2.Controls.Add(Me.Bu_ExcelUser)
+        Me.TabPage2.Controls.Add(Me.Bu_PrintUser)
         Me.TabPage2.Controls.Add(Me.LB_Year)
         Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Controls.Add(Me.Bu_CheckMonth)
@@ -522,10 +535,10 @@ Partial Class In_Out
         Me.GroupBox2.Controls.Add(Me.AttendanceTableDataGridView1)
         Me.GroupBox2.Location = New System.Drawing.Point(143, 18)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(1118, 648)
+        Me.GroupBox2.Size = New System.Drawing.Size(1118, 741)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "GroupBox2"
+        Me.GroupBox2.Text = "Lgo Data"
         '
         'AttendanceTableDataGridView1
         '
@@ -542,71 +555,8 @@ Partial Class In_Out
         Me.AttendanceTableDataGridView1.Location = New System.Drawing.Point(3, 23)
         Me.AttendanceTableDataGridView1.Name = "AttendanceTableDataGridView1"
         Me.AttendanceTableDataGridView1.ReadOnly = True
-        Me.AttendanceTableDataGridView1.Size = New System.Drawing.Size(1112, 622)
+        Me.AttendanceTableDataGridView1.Size = New System.Drawing.Size(1112, 715)
         Me.AttendanceTableDataGridView1.TabIndex = 0
-        '
-        'DataGridViewTextBoxColumn10
-        '
-        Me.DataGridViewTextBoxColumn10.DataPropertyName = "LogID"
-        Me.DataGridViewTextBoxColumn10.HeaderText = "LogID"
-        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
-        Me.DataGridViewTextBoxColumn10.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn11
-        '
-        Me.DataGridViewTextBoxColumn11.DataPropertyName = "UserID"
-        Me.DataGridViewTextBoxColumn11.HeaderText = "UserID"
-        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
-        Me.DataGridViewTextBoxColumn11.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn12
-        '
-        Me.DataGridViewTextBoxColumn12.DataPropertyName = "Username"
-        Me.DataGridViewTextBoxColumn12.HeaderText = "Username"
-        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
-        Me.DataGridViewTextBoxColumn12.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn13
-        '
-        Me.DataGridViewTextBoxColumn13.DataPropertyName = "LogDate"
-        Me.DataGridViewTextBoxColumn13.HeaderText = "LogDate"
-        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
-        Me.DataGridViewTextBoxColumn13.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn14
-        '
-        Me.DataGridViewTextBoxColumn14.DataPropertyName = "TimeIn"
-        Me.DataGridViewTextBoxColumn14.HeaderText = "TimeIn"
-        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
-        Me.DataGridViewTextBoxColumn14.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn15
-        '
-        Me.DataGridViewTextBoxColumn15.DataPropertyName = "TimeOut"
-        Me.DataGridViewTextBoxColumn15.HeaderText = "TimeOut"
-        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
-        Me.DataGridViewTextBoxColumn15.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn16
-        '
-        Me.DataGridViewTextBoxColumn16.DataPropertyName = "LanchOut"
-        Me.DataGridViewTextBoxColumn16.HeaderText = "LanchOut"
-        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
-        Me.DataGridViewTextBoxColumn16.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn17
-        '
-        Me.DataGridViewTextBoxColumn17.DataPropertyName = "LanchIn"
-        Me.DataGridViewTextBoxColumn17.HeaderText = "LanchIn"
-        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
-        Me.DataGridViewTextBoxColumn17.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn18
-        '
-        Me.DataGridViewTextBoxColumn18.DataPropertyName = "Section"
-        Me.DataGridViewTextBoxColumn18.HeaderText = "Section"
-        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
-        Me.DataGridViewTextBoxColumn18.ReadOnly = True
         '
         'AttendanceTableBindingSource1
         '
@@ -677,16 +627,144 @@ Partial Class In_Out
         Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
         Me.PrintPreviewDialog1.Visible = False
         '
-        'Button1
+        'Bu_PrintExcel
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Button1.Location = New System.Drawing.Point(1084, 643)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(183, 113)
-        Me.Button1.TabIndex = 18
-        Me.Button1.Text = "Admin Print"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Bu_PrintExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Bu_PrintExcel.Enabled = False
+        Me.Bu_PrintExcel.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Bu_PrintExcel.Location = New System.Drawing.Point(1085, 698)
+        Me.Bu_PrintExcel.Name = "Bu_PrintExcel"
+        Me.Bu_PrintExcel.Size = New System.Drawing.Size(183, 59)
+        Me.Bu_PrintExcel.TabIndex = 18
+        Me.Bu_PrintExcel.Text = "Print Excel"
+        Me.Bu_PrintExcel.UseVisualStyleBackColor = True
+        '
+        'Bu_AccessPrint
+        '
+        Me.Bu_AccessPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Bu_AccessPrint.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Bu_AccessPrint.Location = New System.Drawing.Point(990, 644)
+        Me.Bu_AccessPrint.Name = "Bu_AccessPrint"
+        Me.Bu_AccessPrint.Size = New System.Drawing.Size(183, 48)
+        Me.Bu_AccessPrint.TabIndex = 19
+        Me.Bu_AccessPrint.Text = "Admin Print"
+        Me.Bu_AccessPrint.UseVisualStyleBackColor = True
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.DataPropertyName = "LogID"
+        Me.DataGridViewTextBoxColumn10.HeaderText = "LogID"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        Me.DataGridViewTextBoxColumn10.Visible = False
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.DataPropertyName = "UserID"
+        Me.DataGridViewTextBoxColumn11.HeaderText = "UserID"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Visible = False
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.DataPropertyName = "Username"
+        Me.DataGridViewTextBoxColumn12.HeaderText = "Username"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        Me.DataGridViewTextBoxColumn13.DataPropertyName = "LogDate"
+        Me.DataGridViewTextBoxColumn13.HeaderText = "LogDate"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.DataPropertyName = "TimeIn"
+        Me.DataGridViewTextBoxColumn14.HeaderText = "TimeIn"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn15
+        '
+        Me.DataGridViewTextBoxColumn15.DataPropertyName = "TimeOut"
+        Me.DataGridViewTextBoxColumn15.HeaderText = "TimeOut"
+        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
+        Me.DataGridViewTextBoxColumn15.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn16
+        '
+        Me.DataGridViewTextBoxColumn16.DataPropertyName = "LanchOut"
+        Me.DataGridViewTextBoxColumn16.HeaderText = "LanchOut"
+        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
+        Me.DataGridViewTextBoxColumn16.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.DataPropertyName = "LanchIn"
+        Me.DataGridViewTextBoxColumn17.HeaderText = "LanchIn"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.DataPropertyName = "Section"
+        Me.DataGridViewTextBoxColumn18.HeaderText = "Section"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        '
+        'Bu_ExcelUser
+        '
+        Me.Bu_ExcelUser.Enabled = False
+        Me.Bu_ExcelUser.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Bu_ExcelUser.Location = New System.Drawing.Point(11, 507)
+        Me.Bu_ExcelUser.Name = "Bu_ExcelUser"
+        Me.Bu_ExcelUser.Size = New System.Drawing.Size(120, 66)
+        Me.Bu_ExcelUser.TabIndex = 20
+        Me.Bu_ExcelUser.Text = "Print Excel"
+        Me.Bu_ExcelUser.UseVisualStyleBackColor = True
+        '
+        'Bu_PrintUser
+        '
+        Me.Bu_PrintUser.Enabled = False
+        Me.Bu_PrintUser.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Bu_PrintUser.Location = New System.Drawing.Point(11, 435)
+        Me.Bu_PrintUser.Name = "Bu_PrintUser"
+        Me.Bu_PrintUser.Size = New System.Drawing.Size(120, 66)
+        Me.Bu_PrintUser.TabIndex = 19
+        Me.Bu_PrintUser.Text = "Print"
+        Me.Bu_PrintUser.UseVisualStyleBackColor = True
+        '
+        'StatusStrip2
+        '
+        Me.StatusStrip2.BackColor = System.Drawing.Color.White
+        Me.StatusStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
+        Me.StatusStrip2.Location = New System.Drawing.Point(3, 763)
+        Me.StatusStrip2.Name = "StatusStrip2"
+        Me.StatusStrip2.Size = New System.Drawing.Size(1275, 22)
+        Me.StatusStrip2.TabIndex = 21
+        Me.StatusStrip2.Text = "StatusStrip2"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(49, 17)
+        Me.ToolStripStatusLabel1.Text = "!!!!!!!!!!!!!!"
+        '
+        'ToolStripStatusLabel2
+        '
+        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(49, 17)
+        Me.ToolStripStatusLabel2.Text = "!!!!!!!!!!!!!!"
+        '
+        'ToolStripStatusLabel3
+        '
+        Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(64, 17)
+        Me.ToolStripStatusLabel3.Text = "!!!!!!!!!!!!!!"
         '
         'In_Out
         '
@@ -716,11 +794,14 @@ Partial Class In_Out
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.AttendanceTableDataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip2.ResumeLayout(False)
+        Me.StatusStrip2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -780,6 +861,12 @@ Partial Class In_Out
     Friend WithEvents AttendanceTableTableAdapter1 As MonthlyDataSheetTableAdapters.AttendanceTableTableAdapter
     Friend WithEvents TableAdapterManager1 As MonthlyDataSheetTableAdapters.TableAdapterManager
     Friend WithEvents AttendanceTableDataGridView1 As DataGridView
+    Friend WithEvents LB_Year As ListBox
+    Friend WithEvents Bu_AdminPrint As Button
+    Friend WithEvents PrintDocument1 As Printing.PrintDocument
+    Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
+    Friend WithEvents Bu_PrintExcel As Button
+    Friend WithEvents Bu_AccessPrint As Button
     Friend WithEvents DataGridViewTextBoxColumn10 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn11 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn12 As DataGridViewTextBoxColumn
@@ -789,9 +876,10 @@ Partial Class In_Out
     Friend WithEvents DataGridViewTextBoxColumn16 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn17 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn18 As DataGridViewTextBoxColumn
-    Friend WithEvents LB_Year As ListBox
-    Friend WithEvents Bu_AdminPrint As Button
-    Friend WithEvents PrintDocument1 As Printing.PrintDocument
-    Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Bu_ExcelUser As Button
+    Friend WithEvents Bu_PrintUser As Button
+    Friend WithEvents StatusStrip2 As StatusStrip
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabel3 As ToolStripStatusLabel
 End Class
