@@ -9,15 +9,7 @@ Public Class In_Out
     Dim sRegTemplate As String = String.Empty
     Dim sRegTemplate10 As String = String.Empty
     Dim tempUserName As String = String.Empty
-    'Private Structure pageDetails
-    '    Dim columns As Integer
-    '    Dim rows As Integer
-    '    Dim startCol As Integer
-    '    Dim startRow As Integer
-    'End Structure
-    'Private pages As Dictionary(Of Integer, pageDetails)
-    'Dim maxPagesWide As Integer
-    'Dim maxPagesTall As Integer
+    Dim DataGridViewSized As DataGridView
     Private Sub In_Out_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Me.AttendanceTableTableAdapter1.Fill(Me.MonthlyDataSheet.AttendanceTable)
         Me.UsersTableTableAdapter.Fill(Me.DataSetInOut.UsersTable)
@@ -271,51 +263,48 @@ Public Class In_Out
     End Sub
 
     Private Sub Bu_AdminPrint_Click(sender As Object, e As EventArgs) Handles Bu_AdminPrint.Click
-        ''PrintDocument1.Print()
+        Dim s As Boolean = DataGridResize(AttendanceTableDataGridView)
+        If s Then
+            'Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView1, Me.AttendanceTableDataGridView1.Font, True)
+            Dim doc As New GridPrintDocument(Me.DataGridViewSized, Me.DataGridViewSized.Font, True)
+            doc.DocumentName = "Preview Test"
+            Dim printPreviewDialog As New PrintPreviewDialog()
+            printPreviewDialog.ClientSize = New Size(600, 800)
+            printPreviewDialog.Location = New Point(2, 2)
+            printPreviewDialog.Name = "Print Preview Dialog"
+            printPreviewDialog.UseAntiAlias = True
+            printPreviewDialog.Document = doc
+            doc.DrawCellBox = True
+            doc.DefaultPageSettings.Landscape = True
+            doc.ScaleFactor = 0.6 'scale
+            'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+            doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
+            printPreviewDialog.Document = doc
+            printPreviewDialog.ShowDialog()
+
+            doc.Dispose()
+            doc = Nothing
+        Else
+            MsgBox("Something Error", MsgBoxStyle.OkOnly, "Error")
+        End If
         'Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView, Me.AttendanceTableDataGridView.Font, True)
         'doc.DocumentName = "Preview Test"
         'Dim printPreviewDialog As New PrintPreviewDialog()
-        'printPreviewDialog.ClientSize = New Size(400, 300)
+        'printPreviewDialog.ClientSize = New Size(600, 800)
         'printPreviewDialog.Location = New Point(2, 2)
         'printPreviewDialog.Name = "Print Preview Dialog"
         'printPreviewDialog.UseAntiAlias = True
         'printPreviewDialog.Document = doc
-        ''printPreviewDialog.ShowDialog()
         'doc.DrawCellBox = True
         'doc.DefaultPageSettings.Landscape = True
-        ''doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 800, 800)  ' 8.27, 11.69)
-        'Dim Scale As Single = doc.CalcScaleForFit()
-        'doc.ScaleFactor = 0.31 'scale
-
-        'printPreviewDialog = New PrintPreviewDialog()
-        'printPreviewDialog.ClientSize = New Size(400, 300)
-        'printPreviewDialog.Location = New Point(2, 2)
-        'printPreviewDialog.Name = "PrintPreviewDialog1"
-        'printPreviewDialog.UseAntiAlias = True
-        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+        'doc.ScaleFactor = 0.6 'scale
+        ''doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+        'doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
         'printPreviewDialog.Document = doc
         'printPreviewDialog.ShowDialog()
 
         'doc.Dispose()
         'doc = Nothing
-        Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView, Me.AttendanceTableDataGridView.Font, True)
-        doc.DocumentName = "Preview Test"
-        Dim printPreviewDialog As New PrintPreviewDialog()
-        printPreviewDialog.ClientSize = New Size(600, 800)
-        printPreviewDialog.Location = New Point(2, 2)
-        printPreviewDialog.Name = "Print Preview Dialog"
-        printPreviewDialog.UseAntiAlias = True
-        printPreviewDialog.Document = doc
-        doc.DrawCellBox = True
-        doc.DefaultPageSettings.Landscape = True
-        doc.ScaleFactor = 0.6 'scale
-        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
-        doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
-        printPreviewDialog.Document = doc
-        printPreviewDialog.ShowDialog()
-
-        doc.Dispose()
-        doc = Nothing
         Bu_AdminPrint.Enabled = False
         Bu_PrintExcel.Enabled = False
     End Sub
@@ -329,24 +318,31 @@ Public Class In_Out
     End Sub
 
     Private Sub Bu_PrintUser_Click(sender As Object, e As EventArgs) Handles Bu_PrintUser.Click
-        Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView1, Me.AttendanceTableDataGridView1.Font, True)
-        doc.DocumentName = "Preview Test"
-        Dim printPreviewDialog As New PrintPreviewDialog()
-        printPreviewDialog.ClientSize = New Size(600, 800)
-        printPreviewDialog.Location = New Point(2, 2)
-        printPreviewDialog.Name = "Print Preview Dialog"
-        printPreviewDialog.UseAntiAlias = True
-        printPreviewDialog.Document = doc
-        doc.DrawCellBox = True
-        doc.DefaultPageSettings.Landscape = True
-        doc.ScaleFactor = 0.6 'scale
-        'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
-        doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
-        printPreviewDialog.Document = doc
-        printPreviewDialog.ShowDialog()
 
-        doc.Dispose()
-        doc = Nothing
+        Dim s As Boolean = DataGridResize(AttendanceTableDataGridView1)
+        If s Then
+            'Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView1, Me.AttendanceTableDataGridView1.Font, True)
+            Dim doc As New GridPrintDocument(Me.DataGridViewSized, Me.DataGridViewSized.Font, True)
+            doc.DocumentName = "Preview Test"
+            Dim printPreviewDialog As New PrintPreviewDialog()
+            printPreviewDialog.ClientSize = New Size(600, 800)
+            printPreviewDialog.Location = New Point(2, 2)
+            printPreviewDialog.Name = "Print Preview Dialog"
+            printPreviewDialog.UseAntiAlias = True
+            printPreviewDialog.Document = doc
+            doc.DrawCellBox = True
+            doc.DefaultPageSettings.Landscape = True
+            doc.ScaleFactor = 0.6 'scale
+            'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
+            doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
+            printPreviewDialog.Document = doc
+            printPreviewDialog.ShowDialog()
+
+            doc.Dispose()
+            doc = Nothing
+        Else
+            MsgBox("Something Error", MsgBoxStyle.OkOnly, "Error")
+        End If
         Bu_PrintUser.Enabled = False
         Bu_ExcelUser.Enabled = False
     End Sub
@@ -431,4 +427,15 @@ Public Class In_Out
         Bu_PrintUser.Enabled = False
         Bu_ExcelUser.Enabled = False
     End Sub
+
+    Function DataGridResize(ByVal datagridviewx As DataGridView) As Boolean
+        If DataGridViewSized Is Nothing Then
+            DataGridViewSized = datagridviewx
+            DataGridViewSized.Columns.RemoveAt(0)
+            DataGridViewSized.Columns.RemoveAt(2)
+        Else
+            Return False
+        End If
+        Return True
+    End Function
 End Class
