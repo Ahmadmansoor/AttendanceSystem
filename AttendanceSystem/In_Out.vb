@@ -14,6 +14,11 @@ Public Class In_Out
         'Me.AttendanceTableTableAdapter1.Fill(Me.MonthlyDataSheet.AttendanceTable)
         Me.UsersTableTableAdapter.Fill(Me.DataSetInOut.UsersTable)
         Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+        ' to go the last row in the data Grid view
+        AttendanceTableDataGridView.ClearSelection()
+        AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+        AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+        ''''''''''''''''''''''''''''''''''''''
         TodayDate = DateAndTime.Today
         La_Date.Text = TodayDate.ToString("d")
         La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
@@ -21,7 +26,7 @@ Public Class In_Out
         Location = New Point(0, 0)
         Size = SystemInformation.PrimaryMonitorMaximizedWindowSize
         'TopMost = True
-        'WindowState = 2
+        WindowState = 2
         If (AxZKFPEngX1.InitEngine = 0) Then
             AxZKFPEngX1.FPEngineVersion = "9"
             Dim fpcHandle As Integer = AxZKFPEngX1.CreateFPCacheDBEx()
@@ -33,7 +38,22 @@ Public Class In_Out
             StatusLabel3.Text = "Initial Failed"
         End If
 
+        TodayDate = DateAndTime.Today
+        La_Date.Text = TodayDate.ToString("d")
+        La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
+        Dim myTime As Date = Now
+        Dim s As Integer = Hour(myTime)
+        If (Hour(myTime) > 11 And Hour(myTime) < 16) Then
+            Bu_BreakIn.Enabled = True
+            Bu_BreakOut.Enabled = True
+        ElseIf (Hour(myTime) < 11 And Hour(myTime) > 16) Then
+            Bu_BreakIn.Enabled = False
+            Bu_BreakOut.Enabled = False
+        End If
+        If (Hour(myTime) = 7) Then
+            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
 
+        End If
 
     End Sub
     Private Sub AxZKFPEngX1_OnCapture(sender As Object, e As IZKFPEngXEvents_OnCaptureEvent) Handles AxZKFPEngX1.OnCapture
@@ -48,24 +68,30 @@ Public Class In_Out
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
                 Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) ' stamp have't valid user
-                If CheckifUserReg.Count > 0 Then ' check it user have recored at this day 
-                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
-                    If isUserHaveRecored.Count = 0 Then
+                If CheckifUserReg.Any Then ' check it user have recored at this day 
+                    'Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
+                    Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
+                    If Not isUserHaveRecored.Any Then
                         'If (isUserHaveRecored.First.TimeIn = TimeSpan.Zero And isUserHaveRecored.First.TimeOut = TimeSpan.Zero) Then 'Or isUserHaveRecored.First.LanchIn = TimeSpan.Zero Or isUserHaveRecored.First.LanchOut = TimeSpan.Zero) Then
                         AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
                         Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                        ' to go the last row in the data Grid view
+                        AttendanceTableDataGridView.ClearSelection()
+                        AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+                        AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+                        ''''''''''''''''''''''''''''''''''''''
                         StatusLabel3.Text = "Verfiy Succeed-you have reg in : " & CheckifUserReg.First.Username
                         StatusLabel3.ForeColor = Color.Green
                         'End If
                     Else
-                        MsgBox("You have been reg In ,you can't enter again in same day ... or something wrong!!", MsgBoxStyle.OkOnly, "Error")
-                        StatusLabel3.Text = "Verfiy Failed-have been reg in"
+                        'MsgBox("You have been reg In ,you can't enter again in same day ... or something wrong!!", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Failed In reg in"
                         StatusLabel3.ForeColor = Color.Red
                         'End If
                     End If
                 Else
-                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
-                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    'MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Press Login again"
                     StatusLabel3.ForeColor = Color.Red
                 End If
                 matchType = 0
@@ -73,27 +99,33 @@ Public Class In_Out
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
                 Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
-                If CheckifUserReg.Count > 0 Then 'check if user in data base
-                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
-                    If isUserHaveRecored.Count > 0 Then ' check if user have recored at this day
+                If CheckifUserReg.Any Then 'check if user in data base
+                    'Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
+                    Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
+                    If isUserHaveRecored.Any Then ' check if user have recored at this day
                         If (isUserHaveRecored.First.TimeOut = TimeSpan.Zero And isUserHaveRecored.First.TimeIn <> TimeSpan.Zero) Then ' this mean he go out and stamp
                             StatusLabel3.Text = "Verfiy Succeed-you have reg out : " & isUserHaveRecored.First.Username
                             StatusLabel3.ForeColor = Color.Green
                             AttendanceTableTableAdapter.Update_TimeOut_UserID(Date.Now.TimeOfDay.ToString, CheckifUserReg.First.UserID)
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                            ' to go the last row in the data Grid view
+                            AttendanceTableDataGridView.ClearSelection()
+                            AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+                            AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+                            ''''''''''''''''''''''''''''''''''''''
                         Else
-                            MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                            StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                            'MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                            StatusLabel3.Text = "Verfiy Failed reg out,Press Log Out again"
                             StatusLabel3.ForeColor = Color.Red
                         End If
                     Else
-                        MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                        StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                        'MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Faile reg out"
                         StatusLabel3.ForeColor = Color.Red
                     End If
                 Else
-                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
-                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    'MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Press LogOut again"
                     StatusLabel3.ForeColor = Color.Red
                 End If
                 matchType = 0
@@ -101,27 +133,33 @@ Public Class In_Out
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
                 Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
-                If CheckifUserReg.Count > 0 Then 'check if user in data base
-                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
-                    If isUserHaveRecored.Count > 0 Then ' check if user have recored at this day
+                If CheckifUserReg.Any Then 'check if user in data base  'If CheckifUserReg.Count > 0 Then 'check if user in data base
+                    'Dim isUserHaveRecored = (From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID).ToList 'And nun.LogDate.ToString = La_Date.Text
+                    Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
+                    If isUserHaveRecored.Any Then ' check if user have recored at this day
                         If (isUserHaveRecored.First.LanchOut = TimeSpan.Zero And isUserHaveRecored.First.LanchIn = TimeSpan.Zero) Then ' this mean he go out and stamp
-                            StatusLabel3.Text = "Verfiy Succeed-you have reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.Text = "Verfiy Succeed-you have reg Lansh out : " & isUserHaveRecored.First.Username
                             StatusLabel3.ForeColor = Color.Green
                             AttendanceTableTableAdapter.Update_LanchOut_UserID(Date.Now.TimeOfDay.ToString, CheckifUserReg.First.UserID)
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                            ' to go the last row in the data Grid view
+                            AttendanceTableDataGridView.ClearSelection()
+                            AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+                            AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+                            ''''''''''''''''''''''''''''''''''''''
                         Else
-                            MsgBox("You have been reg Lansh out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                            StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                            'MsgBox("You have been reg Lansh out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                            StatusLabel3.Text = "Verfiy Failed reg Break out"
                             StatusLabel3.ForeColor = Color.Red
                         End If
                     Else
-                        MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                        StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                        'MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Failed reg Break out"
                         StatusLabel3.ForeColor = Color.Red
                     End If
                 Else
-                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
-                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    'MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Press BreakOut again"
                     StatusLabel3.ForeColor = Color.Red
                 End If
                 matchType = 0
@@ -129,27 +167,33 @@ Public Class In_Out
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
                 Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
-                If CheckifUserReg.Count > 0 Then 'check if user in data base
-                    Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
-                    If isUserHaveRecored.Count > 0 Then ' check if user have recored at this day
+                If CheckifUserReg.Any Then 'check if user in data base
+                    'Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
+                    Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
+                    If isUserHaveRecored.Any Then ' check if user have recored at this day
                         If (isUserHaveRecored.First.LanchIn = TimeSpan.Zero And isUserHaveRecored.First.LanchOut <> TimeSpan.Zero) Then ' this mean he go out and stamp
-                            StatusLabel3.Text = "Verfiy Succeed-you have reg out : " & isUserHaveRecored.First.Username
+                            StatusLabel3.Text = "Verfiy Succeed-you have reg Lansh In : " & isUserHaveRecored.First.Username
                             StatusLabel3.ForeColor = Color.Green
                             AttendanceTableTableAdapter.Update_LanchIn_UserID(Date.Now.TimeOfDay.ToString, CheckifUserReg.First.UserID)
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+                            ' to go the last row in the data Grid view
+                            AttendanceTableDataGridView.ClearSelection()
+                            AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+                            AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+                            ''''''''''''''''''''''''''''''''''''''
                         Else
-                            MsgBox("You have been reg Lansh in or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                            StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                            'MsgBox("You have been reg Lansh in or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                            StatusLabel3.Text = "Verfiy Failed reg Break In"
                             StatusLabel3.ForeColor = Color.Red
                         End If
                     Else
-                        MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
-                        StatusLabel3.Text = "Verfiy Failed-have been reg out"
+                        'MsgBox("You have been reg out or not Log in ,you can't out again in same day", MsgBoxStyle.OkOnly, "Error")
+                        StatusLabel3.Text = "Verfiy Failed reg Break In"
                         StatusLabel3.ForeColor = Color.Red
                     End If
                 Else
-                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
-                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
+                    'MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    StatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Press Break In again"
                     StatusLabel3.ForeColor = Color.Red
                 End If
                 matchType = 0
@@ -157,28 +201,32 @@ Public Class In_Out
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
                 Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
-                If CheckifUserReg.Count > 0 Then 'check if user in data base
+                If CheckifUserReg.Any Then 'check if user in data base
                     Dim monthIndex As Integer = LB_Month.SelectedIndex + 1
                     Dim yearIndex As Integer = LB_Year.SelectedItem.ToString
                     Me.AttendanceTableTableAdapter1.FillByLogDate_UserId(Me.MonthlyDataSheet.AttendanceTable, yearIndex, monthIndex, CheckifUserReg.First.UserID)
                     tempUserName = CheckifUserReg.First.Username
+                    ToolStripStatusLabel3.ForeColor = Color.Green
                     ToolStripStatusLabel3.Text = "Verfiy Succeed you can Print"
                 Else
-                    MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    'MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    ToolStripStatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
                 End If
-
                 matchType = 0
             Case 6
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
                 Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
-                If CheckifUserReg.Count > 0 Then 'check if user in data base
+                If CheckifUserReg.Any Then 'check if user in data base
                     If CheckifUserReg.First.UserLevel = "Admin" Then
                         Bu_AdminPrint.Enabled = True
                         Bu_PrintExcel.Enabled = True
+                        ToolStripStatusLabel3.ForeColor = Color.Green
+                        StatusLabel3.Text = "Verfiy Succeed you can Print"
                     End If
                 Else
-                        MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    'MsgBox("Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!", MsgBoxStyle.OkOnly, "Error")
+                    ToolStripStatusLabel3.Text = "Wrong stamp or No User name for this stamp in Data base pls try again,Thanks or Connect IT Support section !!"
                 End If
                 matchType = 0
         End Select
@@ -190,12 +238,16 @@ Public Class In_Out
         La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
         Dim myTime As Date = Now
         Dim s As Integer = Hour(myTime)
-        If (Hour(myTime) > 12 And Hour(myTime) < 15) Then
+        If (Hour(myTime) > 11 And Hour(myTime) < 16) Then
             Bu_BreakIn.Enabled = True
             Bu_BreakOut.Enabled = True
-        ElseIf (Hour(myTime) < 12 And Hour(myTime) > 15) Then
+        ElseIf (Hour(myTime) < 11 And Hour(myTime) > 16) Then
             Bu_BreakIn.Enabled = False
             Bu_BreakOut.Enabled = False
+        End If
+        If (Hour(myTime) = 7) Then
+            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+
         End If
     End Sub
 
@@ -264,6 +316,7 @@ Public Class In_Out
 
     Private Sub Bu_AdminPrint_Click(sender As Object, e As EventArgs) Handles Bu_AdminPrint.Click
         Dim s As Boolean = DataGridResize(AttendanceTableDataGridView)
+        ToolStripStatusLabel3.Text = "Please wait we are process ur file"
         If s Then
             'Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView1, Me.AttendanceTableDataGridView1.Font, True)
             Dim doc As New GridPrintDocument(Me.DataGridViewSized, Me.DataGridViewSized.Font, True)
@@ -276,7 +329,7 @@ Public Class In_Out
             printPreviewDialog.Document = doc
             doc.DrawCellBox = True
             doc.DefaultPageSettings.Landscape = True
-            doc.ScaleFactor = 0.6 'scale
+            doc.ScaleFactor = 0.5 'scale
             'doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
             doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
             printPreviewDialog.Document = doc
@@ -284,32 +337,27 @@ Public Class In_Out
 
             doc.Dispose()
             doc = Nothing
-        Else
-            MsgBox("Something Error", MsgBoxStyle.OkOnly, "Error")
-        End If
-        'Dim doc As New GridPrintDocument(Me.AttendanceTableDataGridView, Me.AttendanceTableDataGridView.Font, True)
-        'doc.DocumentName = "Preview Test"
-        'Dim printPreviewDialog As New PrintPreviewDialog()
-        'printPreviewDialog.ClientSize = New Size(600, 800)
-        'printPreviewDialog.Location = New Point(2, 2)
-        'printPreviewDialog.Name = "Print Preview Dialog"
-        'printPreviewDialog.UseAntiAlias = True
-        'printPreviewDialog.Document = doc
-        'doc.DrawCellBox = True
-        'doc.DefaultPageSettings.Landscape = True
-        'doc.ScaleFactor = 0.6 'scale
-        ''doc.DefaultPageSettings.PaperSize = New PaperSize("A4", 627, 969)  ' 8.27, 11.69)m_PageSize = {X = 100 Y = 100 Width = 627 Height = 969}
-        'doc.DefaultPageSettings.Margins = New Margins(5, 5, 5, 5)
-        'printPreviewDialog.Document = doc
-        'printPreviewDialog.ShowDialog()
+            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+            ' to go the last row in the data Grid view
+            AttendanceTableDataGridView.ClearSelection()
+            AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+            AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
 
-        'doc.Dispose()
-        'doc = Nothing
+            ''''''''''''''''''''''''''''''''''''''
+            ToolStripStatusLabel3.Text = "file Has Created Will"
+        Else
+            'MsgBox("Something Error", MsgBoxStyle.OkOnly, "Error")
+            ToolStripStatusLabel3.Text = "Something Error"
+        End If
+        releaseObject(DataGridViewSized)
         Bu_AdminPrint.Enabled = False
         Bu_PrintExcel.Enabled = False
     End Sub
 
     Private Sub Bu_AccessPrint_Click(sender As Object, e As EventArgs) Handles Bu_AccessPrint.Click
+        'AttendanceTableDataGridView.ClearSelection()
+        AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+        AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
         If (AxZKFPEngX1.IsRegister()) Then
             AxZKFPEngX1.CancelEnroll()
         End If
@@ -340,6 +388,12 @@ Public Class In_Out
 
             doc.Dispose()
             doc = Nothing
+            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+            ' to go the last row in the data Grid view
+            AttendanceTableDataGridView.ClearSelection()
+            AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+            AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+            ''''''''''''''''''''''''''''''''''''''
         Else
             MsgBox("Something Error", MsgBoxStyle.OkOnly, "Error")
         End If
@@ -348,6 +402,7 @@ Public Class In_Out
     End Sub
 
     Private Sub Bu_PrintExcel_Click(sender As Object, e As EventArgs) Handles Bu_PrintExcel.Click
+        ToolStripStatusLabel3.Text = "Please wait we are process ur file"
         Dim xlApp As Microsoft.Office.Interop.Excel.Application = New Microsoft.Office.Interop.Excel.Application
         Dim xlWorkBook As Microsoft.Office.Interop.Excel.Workbook
         Dim xlWorkSheet As Microsoft.Office.Interop.Excel.Worksheet
@@ -363,20 +418,22 @@ Public Class In_Out
             Next
         Next
         Try
-            xlWorkSheet.SaveAs("\\192.168.0.5\Data\MainBackup\data\DataSheet\ " + DateAndTime.Now.Month.ToString + "-" + DateAndTime.Now.Year.ToString + "xlsx")
+            xlWorkSheet.SaveAs("\\192.168.0.23\Archive2011\DataSheet\ " + DateAndTime.Now.Month.ToString + "-" + DateAndTime.Now.Year.ToString + "xlsx")
             xlWorkBook.Close()
             xlApp.Quit()
             releaseObject(xlApp)
             releaseObject(xlWorkBook)
             releaseObject(xlWorkSheet)
-            MsgBox("File have been Created at DataSheet Folder on the Server", MsgBoxStyle.OkOnly, "Done")
+            'MsgBox("File have been Created at DataSheet Folder on the Server", MsgBoxStyle.OkOnly, "Done")
+            ToolStripStatusLabel3.Text = "File have been Created at DataSheet Folder on the Server 192.168.0.23\Archive"
         Catch ex As Exception
             xlWorkBook.Close()
             xlApp.Quit()
             releaseObject(xlApp)
             releaseObject(xlWorkBook)
             releaseObject(xlWorkSheet)
-            MsgBox(ex.ToString, MsgBoxStyle.OkOnly, "Error")
+            'MsgBox(ex.ToString, MsgBoxStyle.OkOnly, "Error")
+            ToolStripStatusLabel3.Text = ex.ToString
         End Try
         Bu_AdminPrint.Enabled = False
         Bu_PrintExcel.Enabled = False
@@ -408,7 +465,7 @@ Public Class In_Out
             Next
         Next
         Try
-            xlWorkSheet.SaveAs("\\192.168.0.5\Data\MainBackup\data\DataSheet\" + tempUserName + "-" + DateAndTime.Now.Month.ToString + "-" + DateAndTime.Now.Year.ToString + "xlsx")
+            xlWorkSheet.SaveAs("\\192.168.0.23\Archive2011\DataSheet\" + tempUserName + "-" + DateAndTime.Now.Month.ToString + "-" + DateAndTime.Now.Year.ToString + "xlsx")
             xlWorkBook.Close()
             xlApp.Quit()
             releaseObject(xlApp)
@@ -429,12 +486,18 @@ Public Class In_Out
     End Sub
 
     Function DataGridResize(ByVal datagridviewx As DataGridView) As Boolean
-        If DataGridViewSized Is Nothing Then
-            DataGridViewSized = datagridviewx
-            DataGridViewSized.Columns.RemoveAt(0)
-            DataGridViewSized.Columns.RemoveAt(2)
+        Dim DataGridViewTemp As DataGridView
+        If DataGridViewTemp Is Nothing Then
+            DataGridViewTemp = datagridviewx
+            DataGridViewTemp.Columns.RemoveAt(0)
+            DataGridViewTemp.Columns.RemoveAt(2)
+            DataGridViewSized = DataGridViewTemp
         Else
-            Return False
+            DataGridViewTemp = datagridviewx
+            DataGridViewTemp.Columns.RemoveAt(0)
+            DataGridViewTemp.Columns.RemoveAt(2)
+            DataGridViewSized = DataGridViewTemp
+            Return True
         End If
         Return True
     End Function

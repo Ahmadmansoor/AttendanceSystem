@@ -31,10 +31,13 @@ Public Class RegisteringUsers
         AxZKFPEngX1.EndEngine()
     End Sub
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        If UsersTableBindingSource.Count = 0 Then GoTo SS
+
         If (UsernameTextBox.Text = "" Or PasswordTextBox.Text = "" Or SectionComboBox.Text = "" Or UserLevelComboBox.Text = "") Then
             MsgBox("Error adding recored before save the previus one")
             Exit Sub
         End If
+SS:
         UsersTableBindingNavigator.BindingSource.AddNew()
         UsersTableBindingNavigator.BindingSource.MoveLast()
 

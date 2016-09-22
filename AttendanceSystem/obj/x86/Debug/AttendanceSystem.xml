@@ -237,5 +237,10 @@ Used to sort self-referenced table's rows
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:AttendanceSystem.My.Resources.Resources.Logo">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 </members>
 </doc>

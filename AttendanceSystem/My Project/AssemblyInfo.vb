@@ -9,10 +9,10 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("AttendanceSystem")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("Microsoft")>
+<Assembly: AssemblyDescription("Attendance System")>
+<Assembly: AssemblyCompany("Coded By Ahmad Mansoor")>
 <Assembly: AssemblyProduct("AttendanceSystem")>
-<Assembly: AssemblyCopyright("Copyright © Microsoft 2016")>
+<Assembly: AssemblyCopyright("2016 / Coded By Ahmad Mansoor /Safi43@yahoo.com")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

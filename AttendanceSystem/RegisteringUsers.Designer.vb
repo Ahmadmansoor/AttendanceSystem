@@ -32,6 +32,7 @@ Partial Class RegisteringUsers
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RegisteringUsers))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Bu_Ver = New System.Windows.Forms.Button()
         Me.Bu_Reg = New System.Windows.Forms.Button()
         Me.PB_finger = New System.Windows.Forms.PictureBox()
         Me.UserIDTextBox = New System.Windows.Forms.TextBox()
@@ -71,7 +72,6 @@ Partial Class RegisteringUsers
         Me.StatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Bu_Ver = New System.Windows.Forms.Button()
         UserIDLabel = New System.Windows.Forms.Label()
         UsernameLabel = New System.Windows.Forms.Label()
         PasswordLabel = New System.Windows.Forms.Label()
@@ -152,7 +152,7 @@ Partial Class RegisteringUsers
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(741, 633)
+        Me.GroupBox1.Size = New System.Drawing.Size(805, 633)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "User Info"
@@ -176,10 +176,19 @@ Partial Class RegisteringUsers
         Me.GroupBox2.Controls.Add(SectionLabel)
         Me.GroupBox2.Location = New System.Drawing.Point(6, 314)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(729, 312)
+        Me.GroupBox2.Size = New System.Drawing.Size(793, 312)
         Me.GroupBox2.TabIndex = 13
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stamp"
+        '
+        'Bu_Ver
+        '
+        Me.Bu_Ver.Location = New System.Drawing.Point(45, 272)
+        Me.Bu_Ver.Name = "Bu_Ver"
+        Me.Bu_Ver.Size = New System.Drawing.Size(177, 23)
+        Me.Bu_Ver.TabIndex = 15
+        Me.Bu_Ver.Text = "Verify "
+        Me.Bu_Ver.UseVisualStyleBackColor = True
         '
         'Bu_Reg
         '
@@ -192,7 +201,7 @@ Partial Class RegisteringUsers
         '
         'PB_finger
         '
-        Me.PB_finger.Location = New System.Drawing.Point(357, 25)
+        Me.PB_finger.Location = New System.Drawing.Point(461, 25)
         Me.PB_finger.Name = "PB_finger"
         Me.PB_finger.Size = New System.Drawing.Size(326, 270)
         Me.PB_finger.TabIndex = 0
@@ -247,7 +256,7 @@ Partial Class RegisteringUsers
         '
         Me.SectionComboBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Section", True))
         Me.SectionComboBox.FormattingEnabled = True
-        Me.SectionComboBox.Items.AddRange(New Object() {"Admin", "Architectural", "Structural", "MEP", "Contracts", "Project Coordination", "Business Development", "Secretary", "Other", "Site Engineer"})
+        Me.SectionComboBox.Items.AddRange(New Object() {"Admin", "Architectural", "Structural", "MEP", "Contracts", "Project Coordination", "Business Development", "Secretary", "Other", "Site Engineer", "Drivers", "Accounter"})
         Me.SectionComboBox.Location = New System.Drawing.Point(129, 142)
         Me.SectionComboBox.Name = "SectionComboBox"
         Me.SectionComboBox.Size = New System.Drawing.Size(121, 26)
@@ -275,7 +284,7 @@ Partial Class RegisteringUsers
         Me.UsersTableDataGridView.Location = New System.Drawing.Point(6, 26)
         Me.UsersTableDataGridView.Name = "UsersTableDataGridView"
         Me.UsersTableDataGridView.ReadOnly = True
-        Me.UsersTableDataGridView.Size = New System.Drawing.Size(729, 282)
+        Me.UsersTableDataGridView.Size = New System.Drawing.Size(793, 282)
         Me.UsersTableDataGridView.TabIndex = 0
         '
         'DataGridViewTextBoxColumn1
@@ -352,7 +361,7 @@ Partial Class RegisteringUsers
         Me.UsersTableBindingNavigator.MovePreviousItem = Me.BindingNavigatorMovePreviousItem
         Me.UsersTableBindingNavigator.Name = "UsersTableBindingNavigator"
         Me.UsersTableBindingNavigator.PositionItem = Me.BindingNavigatorPositionItem
-        Me.UsersTableBindingNavigator.Size = New System.Drawing.Size(763, 25)
+        Me.UsersTableBindingNavigator.Size = New System.Drawing.Size(843, 25)
         Me.UsersTableBindingNavigator.TabIndex = 1
         Me.UsersTableBindingNavigator.Text = "BindingNavigator1"
         '
@@ -483,7 +492,7 @@ Partial Class RegisteringUsers
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel3, Me.StatusLabel1, Me.StatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 680)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(763, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(843, 22)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -511,32 +520,24 @@ Partial Class RegisteringUsers
         Me.StatusLabel2.Text = "Serial Number :"
         Me.StatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Bu_Ver
-        '
-        Me.Bu_Ver.Location = New System.Drawing.Point(45, 283)
-        Me.Bu_Ver.Name = "Bu_Ver"
-        Me.Bu_Ver.Size = New System.Drawing.Size(177, 23)
-        Me.Bu_Ver.TabIndex = 15
-        Me.Bu_Ver.Text = "Verify "
-        Me.Bu_Ver.UseVisualStyleBackColor = True
-        '
         'RegisteringUsers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(763, 702)
+        Me.ClientSize = New System.Drawing.Size(843, 702)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.AxZKFPEngX1)
         Me.Controls.Add(Me.UsersTableBindingNavigator)
         Me.Controls.Add(Me.GroupBox1)
         Me.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "RegisteringUsers"
-        Me.Text = "RegisteringUsers"
+        Me.Text = "RegisteringUsers  / Coded by Ahmad Mansoor "
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
