@@ -48,9 +48,9 @@ Partial Class In_Out
         Me.Bu_AdminPrint = New System.Windows.Forms.Button()
         Me.PB_Stamp = New System.Windows.Forms.PictureBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.StatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.StatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Bu_BreakOut = New System.Windows.Forms.Button()
         Me.Bu_BreakIn = New System.Windows.Forms.Button()
         Me.Bu_Out = New System.Windows.Forms.Button()
@@ -71,14 +71,22 @@ Partial Class In_Out
         Me.La_Date = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.StatusStrip2 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Bu_ExcelUser = New System.Windows.Forms.Button()
         Me.Bu_PrintUser = New System.Windows.Forms.Button()
         Me.LB_Year = New System.Windows.Forms.ListBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.AttendanceTableDataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Bu_CheckMonth = New System.Windows.Forms.Button()
+        Me.LB_Month = New System.Windows.Forms.ListBox()
+        Me.AttendanceTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.AttendanceTableTableAdapter()
+        Me.TableAdapterManager = New AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager()
+        Me.UsersTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.UsersTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.UsersTableTableAdapter()
+        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
+        Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -90,16 +98,9 @@ Partial Class In_Out
         Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AttendanceTableBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.MonthlyDataSheet = New AttendanceSystem.MonthlyDataSheet()
-        Me.Bu_CheckMonth = New System.Windows.Forms.Button()
-        Me.LB_Month = New System.Windows.Forms.ListBox()
-        Me.AttendanceTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.AttendanceTableTableAdapter()
-        Me.TableAdapterManager = New AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager()
-        Me.UsersTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.UsersTableTableAdapter = New AttendanceSystem.DataSetInOutTableAdapters.UsersTableTableAdapter()
         Me.AttendanceTableTableAdapter1 = New AttendanceSystem.MonthlyDataSheetTableAdapters.AttendanceTableTableAdapter()
         Me.TableAdapterManager1 = New AttendanceSystem.MonthlyDataSheetTableAdapters.TableAdapterManager()
-        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
-        Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
+        Me.CB_Days = New System.Windows.Forms.ComboBox()
         CType(Me.AxZKFPEngX1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AttendanceTableBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AttendanceTableBindingNavigator.SuspendLayout()
@@ -116,9 +117,9 @@ Partial Class In_Out
         Me.StatusStrip2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.AttendanceTableDataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Timer_DateCheck
@@ -339,26 +340,12 @@ Partial Class In_Out
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.White
         Me.StatusStrip1.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2, Me.StatusLabel3})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel3, Me.StatusLabel1, Me.StatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(3, 740)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1275, 45)
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'StatusLabel1
-        '
-        Me.StatusLabel1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StatusLabel1.Name = "StatusLabel1"
-        Me.StatusLabel1.Size = New System.Drawing.Size(79, 40)
-        Me.StatusLabel1.Text = "!!!!!!!!!!!!!!"
-        '
-        'StatusLabel2
-        '
-        Me.StatusLabel2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StatusLabel2.Name = "StatusLabel2"
-        Me.StatusLabel2.Size = New System.Drawing.Size(79, 40)
-        Me.StatusLabel2.Text = "!!!!!!!!!!!!!!"
         '
         'StatusLabel3
         '
@@ -366,6 +353,20 @@ Partial Class In_Out
         Me.StatusLabel3.Name = "StatusLabel3"
         Me.StatusLabel3.Size = New System.Drawing.Size(143, 40)
         Me.StatusLabel3.Text = "!!!!!!!!!!!!!!"
+        '
+        'StatusLabel1
+        '
+        Me.StatusLabel1.Font = New System.Drawing.Font("Segoe UI Light", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusLabel1.Name = "StatusLabel1"
+        Me.StatusLabel1.Size = New System.Drawing.Size(49, 40)
+        Me.StatusLabel1.Text = "!!!!!!!!!!!!!!"
+        '
+        'StatusLabel2
+        '
+        Me.StatusLabel2.Font = New System.Drawing.Font("Segoe UI Light", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusLabel2.Name = "StatusLabel2"
+        Me.StatusLabel2.Size = New System.Drawing.Size(49, 40)
+        Me.StatusLabel2.Text = "!!!!!!!!!!!!!!"
         '
         'Bu_BreakOut
         '
@@ -545,6 +546,7 @@ Partial Class In_Out
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.SteelBlue
+        Me.TabPage2.Controls.Add(Me.CB_Days)
         Me.TabPage2.Controls.Add(Me.StatusStrip2)
         Me.TabPage2.Controls.Add(Me.Bu_ExcelUser)
         Me.TabPage2.Controls.Add(Me.Bu_PrintUser)
@@ -562,37 +564,40 @@ Partial Class In_Out
         'StatusStrip2
         '
         Me.StatusStrip2.BackColor = System.Drawing.Color.White
-        Me.StatusStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
-        Me.StatusStrip2.Location = New System.Drawing.Point(3, 763)
+        Me.StatusStrip2.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel3, Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
+        Me.StatusStrip2.Location = New System.Drawing.Point(3, 740)
         Me.StatusStrip2.Name = "StatusStrip2"
-        Me.StatusStrip2.Size = New System.Drawing.Size(1275, 22)
+        Me.StatusStrip2.Size = New System.Drawing.Size(1275, 45)
         Me.StatusStrip2.TabIndex = 21
         Me.StatusStrip2.Text = "StatusStrip2"
         '
+        'ToolStripStatusLabel3
+        '
+        Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(143, 40)
+        Me.ToolStripStatusLabel3.Text = "!!!!!!!!!!!!!!"
+        '
         'ToolStripStatusLabel1
         '
+        Me.ToolStripStatusLabel1.Font = New System.Drawing.Font("Segoe UI Light", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(49, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(49, 40)
         Me.ToolStripStatusLabel1.Text = "!!!!!!!!!!!!!!"
         '
         'ToolStripStatusLabel2
         '
+        Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Segoe UI Light", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(49, 17)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(49, 40)
         Me.ToolStripStatusLabel2.Text = "!!!!!!!!!!!!!!"
-        '
-        'ToolStripStatusLabel3
-        '
-        Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(64, 17)
-        Me.ToolStripStatusLabel3.Text = "!!!!!!!!!!!!!!"
         '
         'Bu_ExcelUser
         '
         Me.Bu_ExcelUser.Enabled = False
         Me.Bu_ExcelUser.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Bu_ExcelUser.Location = New System.Drawing.Point(11, 507)
+        Me.Bu_ExcelUser.Location = New System.Drawing.Point(11, 562)
         Me.Bu_ExcelUser.Name = "Bu_ExcelUser"
         Me.Bu_ExcelUser.Size = New System.Drawing.Size(120, 66)
         Me.Bu_ExcelUser.TabIndex = 20
@@ -603,7 +608,7 @@ Partial Class In_Out
         '
         Me.Bu_PrintUser.Enabled = False
         Me.Bu_PrintUser.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Bu_PrintUser.Location = New System.Drawing.Point(11, 435)
+        Me.Bu_PrintUser.Location = New System.Drawing.Point(11, 490)
         Me.Bu_PrintUser.Name = "Bu_PrintUser"
         Me.Bu_PrintUser.Size = New System.Drawing.Size(120, 66)
         Me.Bu_PrintUser.TabIndex = 19
@@ -627,7 +632,7 @@ Partial Class In_Out
         Me.GroupBox2.Controls.Add(Me.AttendanceTableDataGridView1)
         Me.GroupBox2.Location = New System.Drawing.Point(143, 18)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(1118, 741)
+        Me.GroupBox2.Size = New System.Drawing.Size(1118, 676)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Lgo Data"
@@ -647,8 +652,57 @@ Partial Class In_Out
         Me.AttendanceTableDataGridView1.Location = New System.Drawing.Point(3, 23)
         Me.AttendanceTableDataGridView1.Name = "AttendanceTableDataGridView1"
         Me.AttendanceTableDataGridView1.ReadOnly = True
-        Me.AttendanceTableDataGridView1.Size = New System.Drawing.Size(1112, 715)
+        Me.AttendanceTableDataGridView1.Size = New System.Drawing.Size(1112, 650)
         Me.AttendanceTableDataGridView1.TabIndex = 0
+        '
+        'Bu_CheckMonth
+        '
+        Me.Bu_CheckMonth.Location = New System.Drawing.Point(11, 420)
+        Me.Bu_CheckMonth.Name = "Bu_CheckMonth"
+        Me.Bu_CheckMonth.Size = New System.Drawing.Size(120, 45)
+        Me.Bu_CheckMonth.TabIndex = 1
+        Me.Bu_CheckMonth.Text = "Log me In"
+        Me.Bu_CheckMonth.UseVisualStyleBackColor = True
+        '
+        'LB_Month
+        '
+        Me.LB_Month.FormattingEnabled = True
+        Me.LB_Month.ItemHeight = 19
+        Me.LB_Month.Items.AddRange(New Object() {"1-January", "2-February", "3-March", "4-April", "5-May", "6-June", "7-July", "8-August", "9-September", "10-October", "11-November", "12-December"})
+        Me.LB_Month.Location = New System.Drawing.Point(11, 127)
+        Me.LB_Month.Name = "LB_Month"
+        Me.LB_Month.Size = New System.Drawing.Size(122, 232)
+        Me.LB_Month.TabIndex = 0
+        '
+        'AttendanceTableTableAdapter
+        '
+        Me.AttendanceTableTableAdapter.ClearBeforeFill = True
+        '
+        'TableAdapterManager
+        '
+        Me.TableAdapterManager.AttendanceTableTableAdapter = Me.AttendanceTableTableAdapter
+        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
+        Me.TableAdapterManager.UpdateOrder = AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UsersTableTableAdapter = Nothing
+        '
+        'UsersTableBindingSource
+        '
+        Me.UsersTableBindingSource.DataMember = "UsersTable"
+        Me.UsersTableBindingSource.DataSource = Me.DataSetInOut
+        '
+        'UsersTableTableAdapter
+        '
+        Me.UsersTableTableAdapter.ClearBeforeFill = True
+        '
+        'PrintPreviewDialog1
+        '
+        Me.PrintPreviewDialog1.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.PrintPreviewDialog1.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.PrintPreviewDialog1.ClientSize = New System.Drawing.Size(400, 300)
+        Me.PrintPreviewDialog1.Enabled = True
+        Me.PrintPreviewDialog1.Icon = CType(resources.GetObject("PrintPreviewDialog1.Icon"), System.Drawing.Icon)
+        Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
+        Me.PrintPreviewDialog1.Visible = False
         '
         'DataGridViewTextBoxColumn10
         '
@@ -725,45 +779,6 @@ Partial Class In_Out
         Me.MonthlyDataSheet.DataSetName = "MonthlyDataSheet"
         Me.MonthlyDataSheet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'Bu_CheckMonth
-        '
-        Me.Bu_CheckMonth.Location = New System.Drawing.Point(11, 365)
-        Me.Bu_CheckMonth.Name = "Bu_CheckMonth"
-        Me.Bu_CheckMonth.Size = New System.Drawing.Size(120, 45)
-        Me.Bu_CheckMonth.TabIndex = 1
-        Me.Bu_CheckMonth.Text = "Log me In"
-        Me.Bu_CheckMonth.UseVisualStyleBackColor = True
-        '
-        'LB_Month
-        '
-        Me.LB_Month.FormattingEnabled = True
-        Me.LB_Month.ItemHeight = 19
-        Me.LB_Month.Items.AddRange(New Object() {"1-January", "2-February", "3-March", "4-April", "5-May", "6-June", "7-July", "8-August", "9-September", "10-October", "11-November", "12-December"})
-        Me.LB_Month.Location = New System.Drawing.Point(11, 127)
-        Me.LB_Month.Name = "LB_Month"
-        Me.LB_Month.Size = New System.Drawing.Size(122, 232)
-        Me.LB_Month.TabIndex = 0
-        '
-        'AttendanceTableTableAdapter
-        '
-        Me.AttendanceTableTableAdapter.ClearBeforeFill = True
-        '
-        'TableAdapterManager
-        '
-        Me.TableAdapterManager.AttendanceTableTableAdapter = Me.AttendanceTableTableAdapter
-        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.UpdateOrder = AttendanceSystem.DataSetInOutTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
-        Me.TableAdapterManager.UsersTableTableAdapter = Nothing
-        '
-        'UsersTableBindingSource
-        '
-        Me.UsersTableBindingSource.DataMember = "UsersTable"
-        Me.UsersTableBindingSource.DataSource = Me.DataSetInOut
-        '
-        'UsersTableTableAdapter
-        '
-        Me.UsersTableTableAdapter.ClearBeforeFill = True
-        '
         'AttendanceTableTableAdapter1
         '
         Me.AttendanceTableTableAdapter1.ClearBeforeFill = True
@@ -774,15 +789,14 @@ Partial Class In_Out
         Me.TableAdapterManager1.BackupDataSetBeforeUpdate = False
         Me.TableAdapterManager1.UpdateOrder = AttendanceSystem.MonthlyDataSheetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
         '
-        'PrintPreviewDialog1
+        'CB_Days
         '
-        Me.PrintPreviewDialog1.AutoScrollMargin = New System.Drawing.Size(0, 0)
-        Me.PrintPreviewDialog1.AutoScrollMinSize = New System.Drawing.Size(0, 0)
-        Me.PrintPreviewDialog1.ClientSize = New System.Drawing.Size(400, 300)
-        Me.PrintPreviewDialog1.Enabled = True
-        Me.PrintPreviewDialog1.Icon = CType(resources.GetObject("PrintPreviewDialog1.Icon"), System.Drawing.Icon)
-        Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
-        Me.PrintPreviewDialog1.Visible = False
+        Me.CB_Days.FormattingEnabled = True
+        Me.CB_Days.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"})
+        Me.CB_Days.Location = New System.Drawing.Point(21, 372)
+        Me.CB_Days.Name = "CB_Days"
+        Me.CB_Days.Size = New System.Drawing.Size(89, 27)
+        Me.CB_Days.TabIndex = 22
         '
         'In_Out
         '
@@ -819,9 +833,9 @@ Partial Class In_Out
         Me.StatusStrip2.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.AttendanceTableDataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AttendanceTableBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MonthlyDataSheet, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -903,4 +917,5 @@ Partial Class In_Out
     Friend WithEvents DataGridViewTextBoxColumn7 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn8 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn9 As DataGridViewTextBoxColumn
+    Friend WithEvents CB_Days As ComboBox
 End Class

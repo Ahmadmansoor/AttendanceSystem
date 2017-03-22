@@ -25,6 +25,7 @@ Partial Class Form1
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.AxZKFPEngX1 = New AxZKFPEngXControl.AxZKFPEngX()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Bu_Ver = New System.Windows.Forms.Button()
         Me.La_RegState = New System.Windows.Forms.Label()
         Me.Bu_Reg = New System.Windows.Forms.Button()
         Me.Bu_DisConnect = New System.Windows.Forms.Button()
@@ -36,7 +37,6 @@ Partial Class Form1
         Me.TB_SensorNu = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PB_finger = New System.Windows.Forms.PictureBox()
-        Me.Bu_Ver = New System.Windows.Forms.Button()
         CType(Me.AxZKFPEngX1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PB_finger, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,6 +71,15 @@ Partial Class Form1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Fingerprint Operation"
         '
+        'Bu_Ver
+        '
+        Me.Bu_Ver.Location = New System.Drawing.Point(194, 160)
+        Me.Bu_Ver.Name = "Bu_Ver"
+        Me.Bu_Ver.Size = New System.Drawing.Size(177, 23)
+        Me.Bu_Ver.TabIndex = 10
+        Me.Bu_Ver.Text = "Verify "
+        Me.Bu_Ver.UseVisualStyleBackColor = True
+        '
         'La_RegState
         '
         Me.La_RegState.AutoSize = True
@@ -91,12 +100,13 @@ Partial Class Form1
         '
         'Bu_DisConnect
         '
+        Me.Bu_DisConnect.BackColor = System.Drawing.SystemColors.Control
         Me.Bu_DisConnect.Location = New System.Drawing.Point(194, 117)
         Me.Bu_DisConnect.Name = "Bu_DisConnect"
         Me.Bu_DisConnect.Size = New System.Drawing.Size(177, 23)
         Me.Bu_DisConnect.TabIndex = 7
         Me.Bu_DisConnect.Text = "DisConnect"
-        Me.Bu_DisConnect.UseVisualStyleBackColor = True
+        Me.Bu_DisConnect.UseVisualStyleBackColor = False
         '
         'Bu_Coonect
         '
@@ -162,15 +172,6 @@ Partial Class Form1
         Me.PB_finger.Size = New System.Drawing.Size(422, 648)
         Me.PB_finger.TabIndex = 10
         Me.PB_finger.TabStop = False
-        '
-        'Bu_Ver
-        '
-        Me.Bu_Ver.Location = New System.Drawing.Point(194, 160)
-        Me.Bu_Ver.Name = "Bu_Ver"
-        Me.Bu_Ver.Size = New System.Drawing.Size(177, 23)
-        Me.Bu_Ver.TabIndex = 10
-        Me.Bu_Ver.Text = "Verify "
-        Me.Bu_Ver.UseVisualStyleBackColor = True
         '
         'Form1
         '

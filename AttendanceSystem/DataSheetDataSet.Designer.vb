@@ -295,6 +295,12 @@ Partial Public Class DataSheetDataSet
         
         Private columnStamp As Global.System.Data.DataColumn
         
+        Private columnStamp1 As Global.System.Data.DataColumn
+        
+        Private columnStamp2 As Global.System.Data.DataColumn
+        
+        Private columnStamp3 As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -379,6 +385,30 @@ Partial Public Class DataSheetDataSet
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Stamp1Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnStamp1
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Stamp2Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnStamp2
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Stamp3Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnStamp3
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -415,9 +445,9 @@ Partial Public Class DataSheetDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddUsersTableRow(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String) As UsersTableRow
+        Public Overloads Function AddUsersTableRow(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String, ByVal Stamp1 As String, ByVal Stamp2 As String, ByVal Stamp3 As String) As UsersTableRow
             Dim rowUsersTableRow As UsersTableRow = CType(Me.NewRow,UsersTableRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Username, Password, Section, UserLevel, Stamp}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Username, Password, Section, UserLevel, Stamp, Stamp1, Stamp2, Stamp3}
             rowUsersTableRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowUsersTableRow)
             Return rowUsersTableRow
@@ -452,6 +482,9 @@ Partial Public Class DataSheetDataSet
             Me.columnSection = MyBase.Columns("Section")
             Me.columnUserLevel = MyBase.Columns("UserLevel")
             Me.columnStamp = MyBase.Columns("Stamp")
+            Me.columnStamp1 = MyBase.Columns("Stamp1")
+            Me.columnStamp2 = MyBase.Columns("Stamp2")
+            Me.columnStamp3 = MyBase.Columns("Stamp3")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -469,6 +502,12 @@ Partial Public Class DataSheetDataSet
             MyBase.Columns.Add(Me.columnUserLevel)
             Me.columnStamp = New Global.System.Data.DataColumn("Stamp", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnStamp)
+            Me.columnStamp1 = New Global.System.Data.DataColumn("Stamp1", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnStamp1)
+            Me.columnStamp2 = New Global.System.Data.DataColumn("Stamp2", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnStamp2)
+            Me.columnStamp3 = New Global.System.Data.DataColumn("Stamp3", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnStamp3)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnUserID}, true))
             Me.columnUserID.AutoIncrement = true
             Me.columnUserID.AutoIncrementSeed = -1
@@ -485,6 +524,9 @@ Partial Public Class DataSheetDataSet
             Me.columnUserLevel.AllowDBNull = false
             Me.columnUserLevel.MaxLength = 50
             Me.columnStamp.MaxLength = 2147483647
+            Me.columnStamp1.MaxLength = 2147483647
+            Me.columnStamp2.MaxLength = 2147483647
+            Me.columnStamp3.MaxLength = 2147483647
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -701,6 +743,51 @@ Partial Public Class DataSheetDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property Stamp1() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableUsersTable.Stamp1Column),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Stamp1' in table 'UsersTable' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableUsersTable.Stamp1Column) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property Stamp2() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableUsersTable.Stamp2Column),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Stamp2' in table 'UsersTable' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableUsersTable.Stamp2Column) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property Stamp3() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableUsersTable.Stamp3Column),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Stamp3' in table 'UsersTable' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableUsersTable.Stamp3Column) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsStampNull() As Boolean
             Return Me.IsNull(Me.tableUsersTable.StampColumn)
         End Function
@@ -709,6 +796,42 @@ Partial Public Class DataSheetDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetStampNull()
             Me(Me.tableUsersTable.StampColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsStamp1Null() As Boolean
+            Return Me.IsNull(Me.tableUsersTable.Stamp1Column)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetStamp1Null()
+            Me(Me.tableUsersTable.Stamp1Column) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsStamp2Null() As Boolean
+            Return Me.IsNull(Me.tableUsersTable.Stamp2Column)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetStamp2Null()
+            Me(Me.tableUsersTable.Stamp2Column) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsStamp3Null() As Boolean
+            Return Me.IsNull(Me.tableUsersTable.Stamp3Column)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetStamp3Null()
+            Me(Me.tableUsersTable.Stamp3Column) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -884,12 +1007,15 @@ Namespace DataSheetDataSetTableAdapters
             tableMapping.ColumnMappings.Add("Section", "Section")
             tableMapping.ColumnMappings.Add("UserLevel", "UserLevel")
             tableMapping.ColumnMappings.Add("Stamp", "Stamp")
+            tableMapping.ColumnMappings.Add("Stamp1", "Stamp1")
+            tableMapping.ColumnMappings.Add("Stamp2", "Stamp2")
+            tableMapping.ColumnMappings.Add("Stamp3", "Stamp3")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[UsersTable] WHERE (([UserID] = @Original_UserID) AND ([Usernam"& _ 
-                "e] = @Original_Username) AND ([Password] = @Original_Password) AND ([Section] = "& _ 
-                "@Original_Section) AND ([UserLevel] = @Original_UserLevel))"
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [UsersTable] WHERE (([UserID] = @Original_UserID) AND ([Username] = @"& _ 
+                "Original_Username) AND ([Password] = @Original_Password) AND ([Section] = @Origi"& _ 
+                "nal_Section) AND ([UserLevel] = @Original_UserLevel))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_UserID", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "UserID", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_Username", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Username", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -898,30 +1024,38 @@ Namespace DataSheetDataSetTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_UserLevel", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "UserLevel", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[UsersTable] ([Username], [Password], [Section], [UserLevel], ["& _ 
-                "Stamp]) VALUES (@Username, @Password, @Section, @UserLevel, @Stamp);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT Use"& _ 
-                "rID, Username, Password, Section, UserLevel, Stamp FROM UsersTable WHERE (UserID"& _ 
-                " = SCOPE_IDENTITY())"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [UsersTable] ([Username], [Password], [Section], [UserLevel], [Stamp]"& _ 
+                ", [Stamp1], [Stamp2], [Stamp3]) VALUES (@Username, @Password, @Section, @UserLev"& _ 
+                "el, @Stamp, @Stamp1, @Stamp2, @Stamp3);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT UserID, Username, Password, Sect"& _ 
+                "ion, UserLevel, Stamp, Stamp1, Stamp2, Stamp3 FROM UsersTable WHERE (UserID = SC"& _ 
+                "OPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Username", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Username", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Password", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Password", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Section", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Section", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@UserLevel", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "UserLevel", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp1", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp1", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp2", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp2", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp3", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp3", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[UsersTable] SET [Username] = @Username, [Password] = @Password, [Se"& _ 
-                "ction] = @Section, [UserLevel] = @UserLevel, [Stamp] = @Stamp WHERE (([UserID] ="& _ 
-                " @Original_UserID) AND ([Username] = @Original_Username) AND ([Password] = @Orig"& _ 
-                "inal_Password) AND ([Section] = @Original_Section) AND ([UserLevel] = @Original_"& _ 
-                "UserLevel));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT UserID, Username, Password, Section, UserLevel, Stamp FROM "& _ 
-                "UsersTable WHERE (UserID = @UserID)"
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [UsersTable] SET [Username] = @Username, [Password] = @Password, [Section]"& _ 
+                " = @Section, [UserLevel] = @UserLevel, [Stamp] = @Stamp, [Stamp1] = @Stamp1, [St"& _ 
+                "amp2] = @Stamp2, [Stamp3] = @Stamp3 WHERE (([UserID] = @Original_UserID) AND ([U"& _ 
+                "sername] = @Original_Username) AND ([Password] = @Original_Password) AND ([Secti"& _ 
+                "on] = @Original_Section) AND ([UserLevel] = @Original_UserLevel));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT UserI"& _ 
+                "D, Username, Password, Section, UserLevel, Stamp, Stamp1, Stamp2, Stamp3 FROM Us"& _ 
+                "ersTable WHERE (UserID = @UserID)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Username", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Username", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Password", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Password", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Section", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Section", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@UserLevel", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "UserLevel", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp1", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp1", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp2", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp2", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Stamp3", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Stamp3", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_UserID", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "UserID", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_Username", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Username", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_Password", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Password", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -943,7 +1077,8 @@ Namespace DataSheetDataSetTableAdapters
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT UserID, Username, Password, Section, UserLevel, Stamp FROM dbo.UsersTable"
+            Me._commandCollection(0).CommandText = "SELECT UserID, Username, Password, Section, UserLevel, Stamp, Stamp1, Stamp2, Sta"& _ 
+                "mp3 FROM UsersTable"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
         
@@ -1044,7 +1179,7 @@ Namespace DataSheetDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String) As Integer
+        Public Overloads Overridable Function Insert(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String, ByVal Stamp1 As String, ByVal Stamp2 As String, ByVal Stamp3 As String) As Integer
             If (Username Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Username")
             Else
@@ -1070,6 +1205,21 @@ Namespace DataSheetDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(4).Value = CType(Stamp,String)
             End If
+            If (Stamp1 Is Nothing) Then
+                Me.Adapter.InsertCommand.Parameters(5).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.InsertCommand.Parameters(5).Value = CType(Stamp1,String)
+            End If
+            If (Stamp2 Is Nothing) Then
+                Me.Adapter.InsertCommand.Parameters(6).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.InsertCommand.Parameters(6).Value = CType(Stamp2,String)
+            End If
+            If (Stamp3 Is Nothing) Then
+                Me.Adapter.InsertCommand.Parameters(7).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.InsertCommand.Parameters(7).Value = CType(Stamp3,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -1089,7 +1239,7 @@ Namespace DataSheetDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String, ByVal Original_UserID As Integer, ByVal Original_Username As String, ByVal Original_Password As String, ByVal Original_Section As String, ByVal Original_UserLevel As String, ByVal UserID As Integer) As Integer
+        Public Overloads Overridable Function Update(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String, ByVal Stamp1 As String, ByVal Stamp2 As String, ByVal Stamp3 As String, ByVal Original_UserID As Integer, ByVal Original_Username As String, ByVal Original_Password As String, ByVal Original_Section As String, ByVal Original_UserLevel As String, ByVal UserID As Integer) As Integer
             If (Username Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Username")
             Else
@@ -1115,28 +1265,43 @@ Namespace DataSheetDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Stamp,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_UserID,Integer)
+            If (Stamp1 Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(5).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Stamp1,String)
+            End If
+            If (Stamp2 Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(6).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Stamp2,String)
+            End If
+            If (Stamp3 Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(7).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Stamp3,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_UserID,Integer)
             If (Original_Username Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_Username")
             Else
-                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_Username,String)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_Username,String)
             End If
             If (Original_Password Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_Password")
             Else
-                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_Password,String)
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_Password,String)
             End If
             If (Original_Section Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_Section")
             Else
-                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_Section,String)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_Section,String)
             End If
             If (Original_UserLevel Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_UserLevel")
             Else
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_UserLevel,String)
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_UserLevel,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(10).Value = CType(UserID,Integer)
+            Me.Adapter.UpdateCommand.Parameters(13).Value = CType(UserID,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -1156,8 +1321,8 @@ Namespace DataSheetDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String, ByVal Original_UserID As Integer, ByVal Original_Username As String, ByVal Original_Password As String, ByVal Original_Section As String, ByVal Original_UserLevel As String) As Integer
-            Return Me.Update(Username, Password, Section, UserLevel, Stamp, Original_UserID, Original_Username, Original_Password, Original_Section, Original_UserLevel, Original_UserID)
+        Public Overloads Overridable Function Update(ByVal Username As String, ByVal Password As String, ByVal Section As String, ByVal UserLevel As String, ByVal Stamp As String, ByVal Stamp1 As String, ByVal Stamp2 As String, ByVal Stamp3 As String, ByVal Original_UserID As Integer, ByVal Original_Username As String, ByVal Original_Password As String, ByVal Original_Section As String, ByVal Original_UserLevel As String) As Integer
+            Return Me.Update(Username, Password, Section, UserLevel, Stamp, Stamp1, Stamp2, Stamp3, Original_UserID, Original_Username, Original_Password, Original_Section, Original_UserLevel, Original_UserID)
         End Function
     End Class
     

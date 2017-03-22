@@ -30,28 +30,21 @@ Partial Class RegisteringUsers
         Dim UserLevelLabel As System.Windows.Forms.Label
         Dim StampLabel As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RegisteringUsers))
+        Dim Stamp1Label As System.Windows.Forms.Label
+        Dim Stamp2Label As System.Windows.Forms.Label
+        Dim Stamp3Label As System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Bu_Ver = New System.Windows.Forms.Button()
         Me.Bu_Reg = New System.Windows.Forms.Button()
         Me.PB_finger = New System.Windows.Forms.PictureBox()
         Me.UserIDTextBox = New System.Windows.Forms.TextBox()
-        Me.UsersTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DataSheetDataSet = New AttendanceSystem.DataSheetDataSet()
         Me.StampTextBox = New System.Windows.Forms.TextBox()
         Me.UserLevelComboBox = New System.Windows.Forms.ComboBox()
         Me.UsernameTextBox = New System.Windows.Forms.TextBox()
         Me.SectionComboBox = New System.Windows.Forms.ComboBox()
         Me.PasswordTextBox = New System.Windows.Forms.TextBox()
         Me.UsersTableDataGridView = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UsersTableTableAdapter = New AttendanceSystem.DataSheetDataSetTableAdapters.UsersTableTableAdapter()
-        Me.TableAdapterManager = New AttendanceSystem.DataSheetDataSetTableAdapters.TableAdapterManager()
         Me.UsersTableBindingNavigator = New System.Windows.Forms.BindingNavigator(Me.components)
         Me.BindingNavigatorAddNewItem = New System.Windows.Forms.ToolStripButton()
         Me.BindingNavigatorCountItem = New System.Windows.Forms.ToolStripLabel()
@@ -72,28 +65,49 @@ Partial Class RegisteringUsers
         Me.StatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Stamp1TextBox = New System.Windows.Forms.TextBox()
+        Me.Stamp2TextBox = New System.Windows.Forms.TextBox()
+        Me.Stamp3TextBox = New System.Windows.Forms.TextBox()
+        Me.UsersTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DataSheetDataSet = New AttendanceSystem.DataSheetDataSet()
+        Me.UsersTableTableAdapter = New AttendanceSystem.DataSheetDataSetTableAdapters.UsersTableTableAdapter()
+        Me.TableAdapterManager = New AttendanceSystem.DataSheetDataSetTableAdapters.TableAdapterManager()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Stamp1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Stamp2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Stamp3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         UserIDLabel = New System.Windows.Forms.Label()
         UsernameLabel = New System.Windows.Forms.Label()
         PasswordLabel = New System.Windows.Forms.Label()
         SectionLabel = New System.Windows.Forms.Label()
         UserLevelLabel = New System.Windows.Forms.Label()
         StampLabel = New System.Windows.Forms.Label()
+        Stamp1Label = New System.Windows.Forms.Label()
+        Stamp2Label = New System.Windows.Forms.Label()
+        Stamp3Label = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PB_finger, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataSheetDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UsersTableDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UsersTableBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.UsersTableBindingNavigator.SuspendLayout()
         CType(Me.AxZKFPEngX1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataSheetDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'UserIDLabel
         '
         UserIDLabel.AutoSize = True
-        UserIDLabel.Location = New System.Drawing.Point(42, 49)
+        UserIDLabel.Location = New System.Drawing.Point(6, 25)
         UserIDLabel.Name = "UserIDLabel"
         UserIDLabel.Size = New System.Drawing.Size(64, 18)
         UserIDLabel.TabIndex = 1
@@ -102,7 +116,7 @@ Partial Class RegisteringUsers
         'UsernameLabel
         '
         UsernameLabel.AutoSize = True
-        UsernameLabel.Location = New System.Drawing.Point(42, 81)
+        UsernameLabel.Location = New System.Drawing.Point(220, 25)
         UsernameLabel.Name = "UsernameLabel"
         UsernameLabel.Size = New System.Drawing.Size(80, 18)
         UsernameLabel.TabIndex = 3
@@ -111,7 +125,7 @@ Partial Class RegisteringUsers
         'PasswordLabel
         '
         PasswordLabel.AutoSize = True
-        PasswordLabel.Location = New System.Drawing.Point(42, 113)
+        PasswordLabel.Location = New System.Drawing.Point(6, 57)
         PasswordLabel.Name = "PasswordLabel"
         PasswordLabel.Size = New System.Drawing.Size(74, 18)
         PasswordLabel.TabIndex = 5
@@ -120,7 +134,7 @@ Partial Class RegisteringUsers
         'SectionLabel
         '
         SectionLabel.AutoSize = True
-        SectionLabel.Location = New System.Drawing.Point(42, 145)
+        SectionLabel.Location = New System.Drawing.Point(202, 57)
         SectionLabel.Name = "SectionLabel"
         SectionLabel.Size = New System.Drawing.Size(59, 18)
         SectionLabel.TabIndex = 7
@@ -129,7 +143,7 @@ Partial Class RegisteringUsers
         'UserLevelLabel
         '
         UserLevelLabel.AutoSize = True
-        UserLevelLabel.Location = New System.Drawing.Point(42, 177)
+        UserLevelLabel.Location = New System.Drawing.Point(428, 60)
         UserLevelLabel.Name = "UserLevelLabel"
         UserLevelLabel.Size = New System.Drawing.Size(81, 18)
         UserLevelLabel.TabIndex = 9
@@ -138,7 +152,7 @@ Partial Class RegisteringUsers
         'StampLabel
         '
         StampLabel.AutoSize = True
-        StampLabel.Location = New System.Drawing.Point(42, 238)
+        StampLabel.Location = New System.Drawing.Point(19, 28)
         StampLabel.Name = "StampLabel"
         StampLabel.Size = New System.Drawing.Size(55, 18)
         StampLabel.TabIndex = 11
@@ -152,20 +166,19 @@ Partial Class RegisteringUsers
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(805, 633)
+        Me.GroupBox1.Size = New System.Drawing.Size(667, 639)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "User Info"
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.GroupBox3)
         Me.GroupBox2.Controls.Add(Me.Bu_Ver)
         Me.GroupBox2.Controls.Add(Me.Bu_Reg)
         Me.GroupBox2.Controls.Add(Me.PB_finger)
         Me.GroupBox2.Controls.Add(Me.UserIDTextBox)
         Me.GroupBox2.Controls.Add(UserIDLabel)
-        Me.GroupBox2.Controls.Add(Me.StampTextBox)
-        Me.GroupBox2.Controls.Add(StampLabel)
         Me.GroupBox2.Controls.Add(UsernameLabel)
         Me.GroupBox2.Controls.Add(Me.UserLevelComboBox)
         Me.GroupBox2.Controls.Add(Me.UsernameTextBox)
@@ -176,62 +189,52 @@ Partial Class RegisteringUsers
         Me.GroupBox2.Controls.Add(SectionLabel)
         Me.GroupBox2.Location = New System.Drawing.Point(6, 314)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(793, 312)
+        Me.GroupBox2.Size = New System.Drawing.Size(650, 318)
         Me.GroupBox2.TabIndex = 13
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Stamp"
         '
         'Bu_Ver
         '
-        Me.Bu_Ver.Location = New System.Drawing.Point(45, 272)
+        Me.Bu_Ver.Location = New System.Drawing.Point(205, 93)
         Me.Bu_Ver.Name = "Bu_Ver"
-        Me.Bu_Ver.Size = New System.Drawing.Size(177, 23)
+        Me.Bu_Ver.Size = New System.Drawing.Size(146, 34)
         Me.Bu_Ver.TabIndex = 15
         Me.Bu_Ver.Text = "Verify "
         Me.Bu_Ver.UseVisualStyleBackColor = True
         '
         'Bu_Reg
         '
-        Me.Bu_Reg.Location = New System.Drawing.Point(57, 206)
+        Me.Bu_Reg.Location = New System.Drawing.Point(44, 93)
         Me.Bu_Reg.Name = "Bu_Reg"
-        Me.Bu_Reg.Size = New System.Drawing.Size(177, 23)
+        Me.Bu_Reg.Size = New System.Drawing.Size(146, 34)
         Me.Bu_Reg.TabIndex = 14
         Me.Bu_Reg.Text = "Register"
         Me.Bu_Reg.UseVisualStyleBackColor = True
         '
         'PB_finger
         '
-        Me.PB_finger.Location = New System.Drawing.Point(461, 25)
+        Me.PB_finger.Location = New System.Drawing.Point(374, 89)
         Me.PB_finger.Name = "PB_finger"
-        Me.PB_finger.Size = New System.Drawing.Size(326, 270)
+        Me.PB_finger.Size = New System.Drawing.Size(262, 223)
         Me.PB_finger.TabIndex = 0
         Me.PB_finger.TabStop = False
         '
         'UserIDTextBox
         '
         Me.UserIDTextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "UserID", True))
-        Me.UserIDTextBox.Location = New System.Drawing.Point(129, 46)
+        Me.UserIDTextBox.Location = New System.Drawing.Point(93, 22)
         Me.UserIDTextBox.Name = "UserIDTextBox"
         Me.UserIDTextBox.ReadOnly = True
         Me.UserIDTextBox.Size = New System.Drawing.Size(121, 26)
         Me.UserIDTextBox.TabIndex = 2
         '
-        'UsersTableBindingSource
-        '
-        Me.UsersTableBindingSource.DataMember = "UsersTable"
-        Me.UsersTableBindingSource.DataSource = Me.DataSheetDataSet
-        '
-        'DataSheetDataSet
-        '
-        Me.DataSheetDataSet.DataSetName = "DataSheetDataSet"
-        Me.DataSheetDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
         'StampTextBox
         '
         Me.StampTextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Stamp", True))
-        Me.StampTextBox.Location = New System.Drawing.Point(129, 235)
+        Me.StampTextBox.Location = New System.Drawing.Point(80, 25)
         Me.StampTextBox.Name = "StampTextBox"
-        Me.StampTextBox.Size = New System.Drawing.Size(121, 26)
+        Me.StampTextBox.Size = New System.Drawing.Size(273, 26)
         Me.StampTextBox.TabIndex = 12
         '
         'UserLevelComboBox
@@ -239,7 +242,7 @@ Partial Class RegisteringUsers
         Me.UserLevelComboBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "UserLevel", True))
         Me.UserLevelComboBox.FormattingEnabled = True
         Me.UserLevelComboBox.Items.AddRange(New Object() {"Admin", "Diroctor", "Manager", "User"})
-        Me.UserLevelComboBox.Location = New System.Drawing.Point(129, 174)
+        Me.UserLevelComboBox.Location = New System.Drawing.Point(515, 57)
         Me.UserLevelComboBox.Name = "UserLevelComboBox"
         Me.UserLevelComboBox.Size = New System.Drawing.Size(121, 26)
         Me.UserLevelComboBox.TabIndex = 10
@@ -247,9 +250,9 @@ Partial Class RegisteringUsers
         'UsernameTextBox
         '
         Me.UsernameTextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Username", True))
-        Me.UsernameTextBox.Location = New System.Drawing.Point(129, 78)
+        Me.UsernameTextBox.Location = New System.Drawing.Point(307, 22)
         Me.UsernameTextBox.Name = "UsernameTextBox"
-        Me.UsernameTextBox.Size = New System.Drawing.Size(121, 26)
+        Me.UsernameTextBox.Size = New System.Drawing.Size(329, 26)
         Me.UsernameTextBox.TabIndex = 4
         '
         'SectionComboBox
@@ -257,95 +260,34 @@ Partial Class RegisteringUsers
         Me.SectionComboBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Section", True))
         Me.SectionComboBox.FormattingEnabled = True
         Me.SectionComboBox.Items.AddRange(New Object() {"Admin", "Architectural", "Structural", "MEP", "Contracts", "Project Coordination", "Business Development", "Secretary", "Other", "Site Engineer", "Drivers", "Accounter"})
-        Me.SectionComboBox.Location = New System.Drawing.Point(129, 142)
+        Me.SectionComboBox.Location = New System.Drawing.Point(271, 54)
         Me.SectionComboBox.Name = "SectionComboBox"
-        Me.SectionComboBox.Size = New System.Drawing.Size(121, 26)
+        Me.SectionComboBox.Size = New System.Drawing.Size(151, 26)
         Me.SectionComboBox.TabIndex = 8
         '
         'PasswordTextBox
         '
         Me.PasswordTextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Password", True))
-        Me.PasswordTextBox.Location = New System.Drawing.Point(129, 110)
+        Me.PasswordTextBox.Location = New System.Drawing.Point(93, 54)
         Me.PasswordTextBox.Name = "PasswordTextBox"
-        Me.PasswordTextBox.Size = New System.Drawing.Size(121, 26)
+        Me.PasswordTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.PasswordTextBox.Size = New System.Drawing.Size(103, 26)
         Me.PasswordTextBox.TabIndex = 6
         '
         'UsersTableDataGridView
         '
         Me.UsersTableDataGridView.AllowUserToAddRows = False
         Me.UsersTableDataGridView.AllowUserToDeleteRows = False
-        Me.UsersTableDataGridView.AllowUserToResizeColumns = False
-        Me.UsersTableDataGridView.AllowUserToResizeRows = False
         Me.UsersTableDataGridView.AutoGenerateColumns = False
         Me.UsersTableDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.UsersTableDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.UsersTableDataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6})
+        Me.UsersTableDataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.Stamp1, Me.Stamp2, Me.Stamp3})
         Me.UsersTableDataGridView.DataSource = Me.UsersTableBindingSource
         Me.UsersTableDataGridView.Location = New System.Drawing.Point(6, 26)
         Me.UsersTableDataGridView.Name = "UsersTableDataGridView"
         Me.UsersTableDataGridView.ReadOnly = True
-        Me.UsersTableDataGridView.Size = New System.Drawing.Size(793, 282)
+        Me.UsersTableDataGridView.Size = New System.Drawing.Size(650, 282)
         Me.UsersTableDataGridView.TabIndex = 0
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "UserID"
-        Me.DataGridViewTextBoxColumn1.HeaderText = "UserID"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Visible = False
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.DataPropertyName = "Username"
-        Me.DataGridViewTextBoxColumn2.FillWeight = 110.9452!
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Username"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "Password"
-        Me.DataGridViewTextBoxColumn3.FillWeight = 69.15678!
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Password"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.DataPropertyName = "Section"
-        Me.DataGridViewTextBoxColumn4.FillWeight = 142.963!
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Section"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.DataPropertyName = "UserLevel"
-        Me.DataGridViewTextBoxColumn5.FillWeight = 110.9452!
-        Me.DataGridViewTextBoxColumn5.HeaderText = "UserLevel"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        Me.DataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.DataPropertyName = "Stamp"
-        Me.DataGridViewTextBoxColumn6.FillWeight = 65.98985!
-        Me.DataGridViewTextBoxColumn6.HeaderText = "Stamp"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        '
-        'UsersTableTableAdapter
-        '
-        Me.UsersTableTableAdapter.ClearBeforeFill = True
-        '
-        'TableAdapterManager
-        '
-        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
-        Me.TableAdapterManager.UpdateOrder = AttendanceSystem.DataSheetDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
-        Me.TableAdapterManager.UsersTableTableAdapter = Me.UsersTableTableAdapter
         '
         'UsersTableBindingNavigator
         '
@@ -361,7 +303,7 @@ Partial Class RegisteringUsers
         Me.UsersTableBindingNavigator.MovePreviousItem = Me.BindingNavigatorMovePreviousItem
         Me.UsersTableBindingNavigator.Name = "UsersTableBindingNavigator"
         Me.UsersTableBindingNavigator.PositionItem = Me.BindingNavigatorPositionItem
-        Me.UsersTableBindingNavigator.Size = New System.Drawing.Size(843, 25)
+        Me.UsersTableBindingNavigator.Size = New System.Drawing.Size(684, 25)
         Me.UsersTableBindingNavigator.TabIndex = 1
         Me.UsersTableBindingNavigator.Text = "BindingNavigator1"
         '
@@ -481,7 +423,7 @@ Partial Class RegisteringUsers
         'AxZKFPEngX1
         '
         Me.AxZKFPEngX1.Enabled = True
-        Me.AxZKFPEngX1.Location = New System.Drawing.Point(685, 12)
+        Me.AxZKFPEngX1.Location = New System.Drawing.Point(642, 1)
         Me.AxZKFPEngX1.Name = "AxZKFPEngX1"
         Me.AxZKFPEngX1.OcxState = CType(resources.GetObject("AxZKFPEngX1.OcxState"), System.Windows.Forms.AxHost.State)
         Me.AxZKFPEngX1.Size = New System.Drawing.Size(24, 24)
@@ -489,42 +431,206 @@ Partial Class RegisteringUsers
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel3, Me.StatusLabel1, Me.StatusLabel2})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 680)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 674)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(843, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(684, 26)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'StatusLabel3
         '
-        Me.StatusLabel3.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusLabel3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusLabel3.Name = "StatusLabel3"
-        Me.StatusLabel3.Size = New System.Drawing.Size(118, 17)
+        Me.StatusLabel3.Size = New System.Drawing.Size(177, 21)
         Me.StatusLabel3.Text = "ToolStripStatusLabel1"
         Me.StatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'StatusLabel1
         '
-        Me.StatusLabel1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusLabel1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusLabel1.Name = "StatusLabel1"
-        Me.StatusLabel1.Size = New System.Drawing.Size(92, 17)
+        Me.StatusLabel1.Size = New System.Drawing.Size(94, 21)
         Me.StatusLabel1.Text = "Sensor Number :"
         Me.StatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'StatusLabel2
         '
-        Me.StatusLabel2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusLabel2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusLabel2.Name = "StatusLabel2"
-        Me.StatusLabel2.Size = New System.Drawing.Size(85, 17)
+        Me.StatusLabel2.Size = New System.Drawing.Size(87, 21)
         Me.StatusLabel2.Text = "Serial Number :"
         Me.StatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Stamp3Label)
+        Me.GroupBox3.Controls.Add(Me.Stamp3TextBox)
+        Me.GroupBox3.Controls.Add(Stamp2Label)
+        Me.GroupBox3.Controls.Add(Me.Stamp2TextBox)
+        Me.GroupBox3.Controls.Add(Stamp1Label)
+        Me.GroupBox3.Controls.Add(Me.Stamp1TextBox)
+        Me.GroupBox3.Controls.Add(Me.StampTextBox)
+        Me.GroupBox3.Controls.Add(StampLabel)
+        Me.GroupBox3.Location = New System.Drawing.Point(9, 133)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(359, 165)
+        Me.GroupBox3.TabIndex = 16
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Stamps"
+        '
+        'Stamp1Label
+        '
+        Stamp1Label.AutoSize = True
+        Stamp1Label.Location = New System.Drawing.Point(11, 60)
+        Stamp1Label.Name = "Stamp1Label"
+        Stamp1Label.Size = New System.Drawing.Size(63, 18)
+        Stamp1Label.TabIndex = 12
+        Stamp1Label.Text = "Stamp1:"
+        '
+        'Stamp1TextBox
+        '
+        Me.Stamp1TextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Stamp1", True))
+        Me.Stamp1TextBox.Location = New System.Drawing.Point(80, 57)
+        Me.Stamp1TextBox.Name = "Stamp1TextBox"
+        Me.Stamp1TextBox.Size = New System.Drawing.Size(273, 26)
+        Me.Stamp1TextBox.TabIndex = 13
+        '
+        'Stamp2Label
+        '
+        Stamp2Label.AutoSize = True
+        Stamp2Label.Location = New System.Drawing.Point(11, 92)
+        Stamp2Label.Name = "Stamp2Label"
+        Stamp2Label.Size = New System.Drawing.Size(63, 18)
+        Stamp2Label.TabIndex = 13
+        Stamp2Label.Text = "Stamp2:"
+        '
+        'Stamp2TextBox
+        '
+        Me.Stamp2TextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Stamp2", True))
+        Me.Stamp2TextBox.Location = New System.Drawing.Point(80, 89)
+        Me.Stamp2TextBox.Name = "Stamp2TextBox"
+        Me.Stamp2TextBox.Size = New System.Drawing.Size(273, 26)
+        Me.Stamp2TextBox.TabIndex = 14
+        '
+        'Stamp3Label
+        '
+        Stamp3Label.AutoSize = True
+        Stamp3Label.Location = New System.Drawing.Point(11, 124)
+        Stamp3Label.Name = "Stamp3Label"
+        Stamp3Label.Size = New System.Drawing.Size(63, 18)
+        Stamp3Label.TabIndex = 14
+        Stamp3Label.Text = "Stamp3:"
+        '
+        'Stamp3TextBox
+        '
+        Me.Stamp3TextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.UsersTableBindingSource, "Stamp3", True))
+        Me.Stamp3TextBox.Location = New System.Drawing.Point(80, 121)
+        Me.Stamp3TextBox.Name = "Stamp3TextBox"
+        Me.Stamp3TextBox.Size = New System.Drawing.Size(273, 26)
+        Me.Stamp3TextBox.TabIndex = 15
+        '
+        'UsersTableBindingSource
+        '
+        Me.UsersTableBindingSource.DataMember = "UsersTable"
+        Me.UsersTableBindingSource.DataSource = Me.DataSheetDataSet
+        '
+        'DataSheetDataSet
+        '
+        Me.DataSheetDataSet.DataSetName = "DataSheetDataSet"
+        Me.DataSheetDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'UsersTableTableAdapter
+        '
+        Me.UsersTableTableAdapter.ClearBeforeFill = True
+        '
+        'TableAdapterManager
+        '
+        Me.TableAdapterManager.BackupDataSetBeforeUpdate = False
+        Me.TableAdapterManager.UpdateOrder = AttendanceSystem.DataSheetDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        Me.TableAdapterManager.UsersTableTableAdapter = Me.UsersTableTableAdapter
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "UserID"
+        Me.DataGridViewTextBoxColumn1.HeaderText = "UserID"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Visible = False
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "Username"
+        Me.DataGridViewTextBoxColumn2.FillWeight = 110.9452!
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Username"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "Password"
+        Me.DataGridViewTextBoxColumn3.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Password"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.DataPropertyName = "Section"
+        Me.DataGridViewTextBoxColumn4.FillWeight = 142.963!
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Section"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.DataPropertyName = "UserLevel"
+        Me.DataGridViewTextBoxColumn5.FillWeight = 110.9452!
+        Me.DataGridViewTextBoxColumn5.HeaderText = "UserLevel"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.DataPropertyName = "Stamp"
+        Me.DataGridViewTextBoxColumn6.FillWeight = 65.98985!
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Stamp"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Visible = False
+        '
+        'Stamp1
+        '
+        Me.Stamp1.DataPropertyName = "Stamp1"
+        Me.Stamp1.HeaderText = "Stamp1"
+        Me.Stamp1.Name = "Stamp1"
+        Me.Stamp1.ReadOnly = True
+        Me.Stamp1.Visible = False
+        '
+        'Stamp2
+        '
+        Me.Stamp2.DataPropertyName = "Stamp2"
+        Me.Stamp2.HeaderText = "Stamp2"
+        Me.Stamp2.Name = "Stamp2"
+        Me.Stamp2.ReadOnly = True
+        Me.Stamp2.Visible = False
+        '
+        'Stamp3
+        '
+        Me.Stamp3.DataPropertyName = "Stamp3"
+        Me.Stamp3.HeaderText = "Stamp3"
+        Me.Stamp3.Name = "Stamp3"
+        Me.Stamp3.ReadOnly = True
+        Me.Stamp3.Visible = False
         '
         'RegisteringUsers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(843, 702)
+        Me.ClientSize = New System.Drawing.Size(684, 700)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.AxZKFPEngX1)
         Me.Controls.Add(Me.UsersTableBindingNavigator)
@@ -542,8 +648,6 @@ Partial Class RegisteringUsers
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PB_finger, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataSheetDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UsersTableDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UsersTableBindingNavigator, System.ComponentModel.ISupportInitialize).EndInit()
         Me.UsersTableBindingNavigator.ResumeLayout(False)
@@ -551,6 +655,10 @@ Partial Class RegisteringUsers
         CType(Me.AxZKFPEngX1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.UsersTableBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataSheetDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -588,14 +696,21 @@ Partial Class RegisteringUsers
     Friend WithEvents StatusLabel2 As ToolStripStatusLabel
     Friend WithEvents StatusLabel3 As ToolStripStatusLabel
     Friend WithEvents ToolStripButton1 As ToolStripButton
+    Friend WithEvents ToolStripButton2 As ToolStripButton
+    Friend WithEvents Bu_Reg As Button
+    Friend WithEvents PB_finger As PictureBox
+    Friend WithEvents Bu_Ver As Button
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Stamp3TextBox As TextBox
+    Friend WithEvents Stamp2TextBox As TextBox
+    Friend WithEvents Stamp1TextBox As TextBox
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
-    Friend WithEvents ToolStripButton2 As ToolStripButton
-    Friend WithEvents Bu_Reg As Button
-    Friend WithEvents PB_finger As PictureBox
-    Friend WithEvents Bu_Ver As Button
+    Friend WithEvents Stamp1 As DataGridViewTextBoxColumn
+    Friend WithEvents Stamp2 As DataGridViewTextBoxColumn
+    Friend WithEvents Stamp3 As DataGridViewTextBoxColumn
 End Class

@@ -87,25 +87,37 @@ SS:
         Else
             sRegTemplate = AxZKFPEngX1.GetTemplateAsStringEx("9")
             If (UserIDTextBox.Text <> "") Then
-                StampTextBox.Text = sRegTemplate
+                'StampTextBox.Text = sRegTemplate
+                setinText(sRegTemplate)
             End If
             sRegTemplate10 = AxZKFPEngX1.GetTemplateAsStringEx("10")
-                If (sRegTemplate.Length > 0) Then
-                    If (sRegTemplate10.Length > 0) Then
-                        AxZKFPEngX1.AddRegTemplateStrToFPCacheDBEx(fpcHandle, FPID, sRegTemplate, sRegTemplate10)
-                    Else
-                        MsgBox("Register 10.0 Faild,Template length is Zero")
-                    End If
-                    e.aTemplate = AxZKFPEngX1.DecodeTemplate1(sRegTemplate)
-                    AxZKFPEngX1.SetTemplateLen(e.aTemplate, 602)
-                    AxZKFPEngX1.SaveTemplate("fingerprint.tpl", e.aTemplate)
-                    FPID = FPID + 1
-                    MsgBox("Register Succeed")
-                    StatusLabel3.Text = "Wait"
+            If (sRegTemplate.Length > 0) Then
+                If (sRegTemplate10.Length > 0) Then
+                    AxZKFPEngX1.AddRegTemplateStrToFPCacheDBEx(fpcHandle, FPID, sRegTemplate, sRegTemplate10)
                 Else
-                    MsgBox("Register Faild ,Template length is zero")
+                    MsgBox("Register 10.0 Faild,Template length is Zero")
                 End If
+                e.aTemplate = AxZKFPEngX1.DecodeTemplate1(sRegTemplate)
+                AxZKFPEngX1.SetTemplateLen(e.aTemplate, 602)
+                AxZKFPEngX1.SaveTemplate("fingerprint.tpl", e.aTemplate)
+                FPID = FPID + 1
+                MsgBox("Register Succeed")
+                StatusLabel3.Text = "Wait"
+            Else
+                MsgBox("Register Faild ,Template length is zero")
             End If
+        End If
+    End Sub
+    Private Sub setinText(ByVal sRegTemplateX As String)
+        If (StampTextBox.Focused) Then
+            StampTextBox.Text = sRegTemplateX
+        ElseIf (Stamp1TextBox.Focused) Then
+            Stamp1TextBox.Text = sRegTemplateX
+        ElseIf (Stamp2TextBox.Focused) Then
+            Stamp2TextBox.Text = sRegTemplateX
+        ElseIf (Stamp3TextBox.Focused) Then
+            Stamp3TextBox.Text = sRegTemplateX
+        End If
     End Sub
     Private Sub AxZKFPEngX1_OnCapture(sender As Object, e As IZKFPEngXEvents_OnCaptureEvent) Handles AxZKFPEngX1.OnCapture
         Dim id As Integer = 0
@@ -117,7 +129,18 @@ SS:
         If (matchType = 1) Then
             Dim bTemp As String = String.Empty
             sTemp = AxZKFPEngX1.GetTemplateAsString()
-            bTemp = StampTextBox.Text 'sRegTemplate ;here we get the save Templet of the Finger Print we will save it in the data base later 
+
+            If (StampTextBox.Focused) Then
+                bTemp = StampTextBox.Text
+            ElseIf (Stamp1TextBox.Focused) Then
+                bTemp = Stamp1TextBox.Text
+            ElseIf (Stamp2TextBox.Focused) Then
+                bTemp = Stamp2TextBox.Text
+            ElseIf (Stamp3TextBox.Focused) Then
+                bTemp = Stamp3TextBox.Text
+            End If
+
+            'bTemp = StampTextBox.Text 'sRegTemplate ;here we get the save Templet of the Finger Print we will save it in the data base later 
             If (AxZKFPEngX1.VerFingerFromStr(bTemp, sTemp, False, RegChanged)) Then
                 StatusLabel3.Text = "Verfiy Succeed"
             Else
@@ -132,5 +155,6 @@ SS:
         End If
         StatusLabel3.Text = "Verify"
         matchType = 1
+
     End Sub
 End Class
