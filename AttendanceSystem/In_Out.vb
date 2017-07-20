@@ -3,7 +3,8 @@ Imports AxZKFPEngXControl
 Imports GridPrintPreviewLib
 
 Public Class In_Out
-    Dim TodayDate As Date
+    'Dim TodayDate As Date
+    Dim ServerDate As Date
     'Dim TimeSpanX As TimeSpan = Date.Now.TimeOfDay
     Dim matchType As Integer = 0
     Dim sRegTemplate As String = String.Empty
@@ -15,13 +16,19 @@ Public Class In_Out
         Me.UsersTableTableAdapter.Fill(Me.DataSetInOut.UsersTable)
         Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
         ' to go the last row in the data Grid view
-        'AttendanceTableDataGridView.ClearSelection()
-        'AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
-        'AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+        Try
+            AttendanceTableDataGridView.ClearSelection()
+            AttendanceTableDataGridView.Rows(AttendanceTableDataGridView.RowCount - 1).Selected = True
+            AttendanceTableDataGridView.FirstDisplayedScrollingRowIndex = AttendanceTableDataGridView.RowCount - 1
+        Catch ex As Exception
+
+        End Try
         ''''''''''''''''''''''''''''''''''''''
-        TodayDate = DateAndTime.Today
-        La_Date.Text = TodayDate.ToString("d")
-        La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
+        ServerDate = UsersTableTableAdapter.GetServerTime()
+        'TodayDate = DateAndTime.Today
+        ServerDate = ServerDate
+        La_Date.Text = ServerDate.ToString("d")
+        La_Time.Text = ServerDate.ToLongTimeString 'DateAndTime.TimeOfDay.ToString("hh:mm tt")
         FormBorderStyle = Windows.Forms.FormBorderStyle.None
         Location = New Point(0, 0)
         Size = SystemInformation.PrimaryMonitorMaximizedWindowSize
@@ -38,11 +45,11 @@ Public Class In_Out
             StatusLabel3.Text = "Initial Failed"
         End If
 
-        TodayDate = DateAndTime.Today
-        La_Date.Text = TodayDate.ToString("d")
-        La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
-        Dim myTime As Date = Now
-        Dim s As Integer = Hour(myTime)
+        'TodayDate = DateAndTime.Today
+        'La_Date.Text = TodayDate.ToString("d")
+        'La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
+        Dim myTime As Date = ServerDate ' Now
+        'Dim s As Integer = Hour(myTime)
         If (Hour(myTime) > 11 And Hour(myTime) < 16) Then
             Bu_BreakIn.Enabled = True
             Bu_BreakOut.Enabled = True
@@ -52,9 +59,32 @@ Public Class In_Out
         End If
         If (Hour(myTime) = 7) Then
             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
-
         End If
         CB_Days.SelectedIndex = 0
+    End Sub
+    Private Sub Timer_DateCheck_Tick(sender As Object, e As EventArgs) Handles Timer_DateCheck.Tick
+        'Dim ServerDate As Date = UsersTableTableAdapter.GetServerTime()
+        'TodayDate = ServerDate 'DateAndTime.Today
+        Try
+            ServerDate = UsersTableTableAdapter.GetServerTime()
+        Catch ex As Exception
+            ServerDate = DateAndTime.Today
+        End Try
+        Dim WeekName As String = WeekdayName(Weekday(ServerDate))
+        La_Date.Text = ServerDate.ToString("d") + Environment.NewLine + WeekName
+        La_Time.Text = ServerDate.ToLongTimeString 'TimeOfDay.ToString '("hh:mm tt") 'DateAndTime.TimeOfDay.ToString("hh:mm tt")
+        Dim myTime As Date = ServerDate 'Now
+        'Dim s As Integer = Hour(myTime)
+        If (Hour(myTime) > 11 And Hour(myTime) < 16) Then
+            Bu_BreakIn.Enabled = True
+            Bu_BreakOut.Enabled = True
+        ElseIf (Hour(myTime) < 11 And Hour(myTime) > 16) Then
+            Bu_BreakIn.Enabled = False
+            Bu_BreakOut.Enabled = False
+        End If
+        If (Hour(myTime) = 7) Then
+            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
+        End If
     End Sub
     Private Sub AxZKFPEngX1_OnCapture(sender As Object, e As IZKFPEngXEvents_OnCaptureEvent) Handles AxZKFPEngX1.OnCapture
         Dim id As Integer = 0
@@ -65,17 +95,28 @@ Public Class In_Out
         Dim RegChanged As Boolean = False
         StatusLabel3.ForeColor = Color.Black
         ToolStripStatusLabel3.ForeColor = Color.Black
+        'Dim ServerDate As Date = UsersTableTableAdapter.GetServerTime()
+        Try
+            ServerDate = UsersTableTableAdapter.GetServerTime()
+        Catch ex As Exception
+            ServerDate = DateAndTime.Today
+        End Try
+
         Select Case matchType
             Case 1  ' enter user
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
-                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) ' stamp have't valid user
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp1, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp2, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp3, sTemp, False, RegChanged)  ' stamp have't valid user
                 If CheckifUserReg.Any Then ' check it user have recored at this day 
                     'Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
                     Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
                     If Not isUserHaveRecored.Any Then
                         'If (isUserHaveRecored.First.TimeIn = TimeSpan.Zero And isUserHaveRecored.First.TimeOut = TimeSpan.Zero) Then 'Or isUserHaveRecored.First.LanchIn = TimeSpan.Zero Or isUserHaveRecored.First.LanchOut = TimeSpan.Zero) Then
-                        AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
+                        'AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, La_Date.Text, Date.Now.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
+                        AttendanceTableTableAdapter.Insert(CheckifUserReg.First.UserID, CheckifUserReg.First.Username, ServerDate, ServerDate.TimeOfDay, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, CheckifUserReg.First.Section)
                         Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
                         ' to go the last row in the data Grid view
                         AttendanceTableDataGridView.ClearSelection()
@@ -100,7 +141,10 @@ Public Class In_Out
             Case 2  ' user go out  
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
-                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp1, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp2, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp3, sTemp, False, RegChanged) 'num.Stamp
                 If CheckifUserReg.Any Then 'check if user in data base
                     'Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
                     Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
@@ -108,7 +152,8 @@ Public Class In_Out
                         If (isUserHaveRecored.First.TimeOut = TimeSpan.Zero And isUserHaveRecored.First.TimeIn <> TimeSpan.Zero) Then ' this mean he go out and stamp
                             StatusLabel3.Text = "Verfiy Succeed-you have reg out : " & isUserHaveRecored.First.Username
                             StatusLabel3.ForeColor = Color.Green
-                            AttendanceTableTableAdapter.Update_TimeOut_LogID(Date.Now.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
+                            'AttendanceTableTableAdapter.Update_TimeOut_LogID(Date.Now.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
+                            AttendanceTableTableAdapter.Update_TimeOut_LogID(ServerDate.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
                             ' to go the last row in the data Grid view
                             Dim rowindex As Integer = DataGridRowValueFind(AttendanceTableDataGridView, isUserHaveRecored.First.UserID)
@@ -135,7 +180,10 @@ Public Class In_Out
             Case 3  ' go to Lansh out
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
-                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp1, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp2, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp3, sTemp, False, RegChanged) 'num.Stamp
                 If CheckifUserReg.Any Then 'check if user in data base  'If CheckifUserReg.Count > 0 Then 'check if user in data base
                     'Dim isUserHaveRecored = (From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID).ToList 'And nun.LogDate.ToString = La_Date.Text
                     Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
@@ -143,7 +191,8 @@ Public Class In_Out
                         If (isUserHaveRecored.First.LanchOut = TimeSpan.Zero And isUserHaveRecored.First.LanchIn = TimeSpan.Zero) Then ' this mean he go out and stamp
                             StatusLabel3.Text = "Verfiy Succeed-you have reg Lansh out : " & isUserHaveRecored.First.Username
                             StatusLabel3.ForeColor = Color.Green
-                            AttendanceTableTableAdapter.Update_LanchOut_LogID(Date.Now.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
+                            'AttendanceTableTableAdapter.Update_LanchOut_LogID(Date.Now.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
+                            AttendanceTableTableAdapter.Update_LanchOut_LogID(ServerDate.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
                             ' to go the last row in the data Grid view
                             Dim rowindex As Integer = DataGridRowValueFind(AttendanceTableDataGridView, isUserHaveRecored.First.UserID)
@@ -170,7 +219,10 @@ Public Class In_Out
             Case 4  ' back form lansh (in)
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
-                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp1, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp2, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp3, sTemp, False, RegChanged) 'num.Stamp
                 If CheckifUserReg.Any Then 'check if user in data base
                     'Dim isUserHaveRecored = From nun In AttendanceTableTableAdapter.GetData(DateAndTime.DateString) Where nun.UserID = CheckifUserReg.First.UserID 'And nun.LogDate.ToString = La_Date.Text
                     Dim isUserHaveRecored = AttendanceTableTableAdapter.GetDataByLogDate_UserID(DateAndTime.DateString, CheckifUserReg.First.UserID)  'And nun.LogDate.ToString = La_Date.Text
@@ -178,7 +230,8 @@ Public Class In_Out
                         If (isUserHaveRecored.First.LanchIn = TimeSpan.Zero And isUserHaveRecored.First.LanchOut <> TimeSpan.Zero) Then ' this mean he go out and stamp
                             StatusLabel3.Text = "Verfiy Succeed-you have reg Lansh In : " & isUserHaveRecored.First.Username
                             StatusLabel3.ForeColor = Color.Green
-                            AttendanceTableTableAdapter.Update_LanchIn_LogID(Date.Now.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
+                            'AttendanceTableTableAdapter.Update_LanchIn_LogID(Date.Now.TimeOfDay.ToString, isUserHaveRecored.First.LogID)
+                            AttendanceTableTableAdapter.Update_LanchIn_LogID(ServerDate.TimeOfDay.ToString(), isUserHaveRecored.First.LogID)
                             Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
                             ' to go the last row in the data Grid view
                             Dim rowindex As Integer = DataGridRowValueFind(AttendanceTableDataGridView, isUserHaveRecored.First.UserID)
@@ -205,7 +258,10 @@ Public Class In_Out
             Case 5
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
-                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp1, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp2, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp3, sTemp, False, RegChanged) 'num.Stamp
                 If CheckifUserReg.Any Then 'check if user in data base
                     If (CheckifUserReg.First.UserLevel = "Admin" And CB_Days.Text <> 0) Then
                         Dim monthIndex As Integer = LB_Month.SelectedIndex + 1
@@ -232,7 +288,10 @@ Public Class In_Out
             Case 6
                 Dim bTemp As String = String.Empty
                 sTemp = AxZKFPEngX1.GetTemplateAsString()
-                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) 'num.Stamp
+                Dim CheckifUserReg = From num In UsersTableTableAdapter.GetData Where AxZKFPEngX1.VerFingerFromStr(num.Stamp, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp1, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp2, sTemp, False, RegChanged) Or
+                                                                                    AxZKFPEngX1.VerFingerFromStr(num.Stamp3, sTemp, False, RegChanged) 'num.Stamp
                 If CheckifUserReg.Any Then 'check if user in data base
                     If CheckifUserReg.First.UserLevel = "Admin" Then
                         Bu_AdminPrint.Enabled = True
@@ -250,25 +309,6 @@ Public Class In_Out
         End Select
 
     End Sub
-    Private Sub Timer_DateCheck_Tick(sender As Object, e As EventArgs) Handles Timer_DateCheck.Tick
-        TodayDate = DateAndTime.Today
-        La_Date.Text = TodayDate.ToString("d")
-        La_Time.Text = DateAndTime.TimeOfDay.ToString("hh:mm tt")
-        Dim myTime As Date = Now
-        Dim s As Integer = Hour(myTime)
-        If (Hour(myTime) > 11 And Hour(myTime) < 16) Then
-            Bu_BreakIn.Enabled = True
-            Bu_BreakOut.Enabled = True
-        ElseIf (Hour(myTime) < 11 And Hour(myTime) > 16) Then
-            Bu_BreakIn.Enabled = False
-            Bu_BreakOut.Enabled = False
-        End If
-        If (Hour(myTime) = 7) Then
-            Me.AttendanceTableTableAdapter.Fill(Me.DataSetInOut.AttendanceTable, DateAndTime.DateString)
-
-        End If
-    End Sub
-
     Private Sub AttendanceTableBindingNavigatorSaveItem_Click(sender As Object, e As EventArgs) Handles AttendanceTableBindingNavigatorSaveItem.Click
         Me.Validate()
         Me.AttendanceTableBindingSource.EndEdit()
